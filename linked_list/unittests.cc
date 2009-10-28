@@ -1,11 +1,33 @@
 #include "code.h"
 #include <gtest/gtest.h>
 
-// This test is named "AddNodes", and belongs to the "NodesTest" test case.
 TEST(NodesTest, AddTwoNodes) {
-  EXPECT_EQ(0, count_list());
-  add_node_at_end(4);
-  EXPECT_EQ(1, count_list());
-  add_node_at_end(3);
-  EXPECT_EQ(2, count_list());
+  delete_all_nodes();
+  EXPECT_EQ(0, count_nodes());
+  append_node(4);
+  EXPECT_EQ(1, count_nodes());
+  append_node(3);
+  EXPECT_EQ(2, count_nodes());
+}
+
+TEST(NodesTest, DeleteStartNode) {
+  delete_all_nodes();
+  EXPECT_EQ(0, count_nodes());
+  append_node(4);
+  EXPECT_EQ(1, count_nodes());
+  append_node(3);
+  EXPECT_EQ(2, count_nodes());
+  delete_start_node();
+  EXPECT_EQ(1, count_nodes());
+}
+
+TEST(NodesTest, DeleteAllNodes) {
+  delete_all_nodes();
+  EXPECT_EQ(0, count_nodes());
+  append_node(4);
+  EXPECT_EQ(1, count_nodes());
+  append_node(3);
+  EXPECT_EQ(2, count_nodes());
+  delete_all_nodes();
+  EXPECT_EQ(0, count_nodes());
 }

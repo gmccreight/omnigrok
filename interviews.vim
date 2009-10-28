@@ -1,6 +1,5 @@
 " Using Googletest, Google's C++ testing framework
 
-
 " Don't reload the NERDTree and grep options...
 if !exists('g:interviews_loaded')
     let g:interviews_loaded = 1
@@ -20,11 +19,15 @@ endif
 " sudo bash -c 'echo /usr/local/lib >> /etc/ld.so.conf ' &&  sudo ldconfig
 " which was talked about in greater detail here:
 " http://groups.google.com/group/googletestframework/browse_thread/thread/871aeeca486073b3
- 
+
+map ,t :execute "edit " . expand("%:h") . "/unittests.cc"<cr>
+map ,c :execute "edit " . expand("%:h") . "/code.cc"<cr>
+map ,h :execute "edit " . expand("%:h") . "/code.h"<cr>
+
 map <f4> :call RunUnitTestsForDir()<cr>
 
 " If directories are layed out a special way, it's easy to run the unit tests
-" in them.
+" in them.  See the 'linked_list' directory for an example.
 function! RunUnitTestsForDir()
     let cwd = getcwd()
     execute "cd " . expand("%:h")

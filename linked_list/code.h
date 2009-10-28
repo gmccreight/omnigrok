@@ -1,7 +1,9 @@
 #ifndef INTERVIEW_LINKED_LIST_
 #define INTERVIEW_LINKED_LIST_
 
-void add_node_at_end(int value);
-int count_list(void);
+void append_node(int value);
+int count_nodes(void);
+void delete_start_node(void);
+void delete_all_nodes(void);
 
 #endif  // INTERVIEW_LINKED_LIST_

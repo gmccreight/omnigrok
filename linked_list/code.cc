@@ -11,9 +11,8 @@ struct node
 
 node *start_ptr = NULL;
 node *current;		 // Used to move along the list
-int option = 0;
 
-void add_node_at_end(int value) {
+void append_node(int value) {
 
     node *temp, *temp2;
 
@@ -37,7 +36,7 @@ void add_node_at_end(int value) {
     }
 }
 
-int count_list() {
+int count_nodes() {
     node *temp;
     temp = start_ptr;
     if (temp == NULL) {
@@ -53,35 +52,31 @@ int count_list() {
     }
 }
 
-/*
-void display_list()
-{  node *temp;
-    temp = start_ptr;
-    cout << endl;
-    if (temp == NULL)
-        cout << "The list is empty!" << endl;
-    else
-    { while (temp != NULL)
-        {  // Display details for what temp points to
-            cout << "Name : " << temp->name << " ";
-            cout << "Age : " << temp->age << " ";
-            cout << "Height : " << temp->height;
-            if (temp == current)
-                cout << " <-- Current node";
-            cout << endl;
-            temp = temp->nxt;
-
-        }
-        cout << "End of list!" << endl;
-    }
-}
-
-void delete_start_node()
-{ node *temp;
+void delete_start_node() {
+    node *temp;
     temp = start_ptr;
     start_ptr = start_ptr->nxt;
     delete temp;
 }
+
+void delete_all_nodes() {
+    node *temp, *temp2;
+    temp = start_ptr;
+    if (temp == NULL) {
+        return;
+    }
+    while(temp->nxt != NULL) {
+        temp2 = temp;
+        temp = temp->nxt;
+        start_ptr = temp;
+        delete temp2;
+    }
+    delete temp;
+    start_ptr = NULL;
+    current = NULL;
+}
+
+/*
 
 void delete_end_node()
 { node *temp1, *temp2;
