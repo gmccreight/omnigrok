@@ -4,9 +4,8 @@ using namespace std;
 // Adapted from: http://richardbowles.tripod.com/cpp/linklist/linklist.htm
 
 struct node
-{  char name[20];     // Name of up to 20 letters
-    int age;          // D.O.B. would be better
-    float height;     // In meters
+{  
+    int value;
     node *nxt;        // Pointer to next node
 };
 
@@ -14,35 +13,47 @@ node *start_ptr = NULL;
 node *current;		 // Used to move along the list
 int option = 0;
 
-void add_node_at_end()
-{  node *temp, *temp2;   // Temporary pointers
+void add_node_at_end(int value) {
 
-    // Reserve space for new node and fill it with data
+    node *temp, *temp2;
+
     temp = new node;
-    cout << "Please enter the name of the person: ";
-    cin >> temp->name;
-    cout << "Please enter the age of the person : ";
-    cin >> temp->age;
-    cout << "Please enter the height of the person : ";
-    cin >> temp->height;
+    temp->value = value;
     temp->nxt = NULL;
 
     // Set up link to this node
-    if (start_ptr == NULL)
-    { start_ptr = temp;
+    if (start_ptr == NULL) {
+        start_ptr = temp;
         current = start_ptr;
     }
-    else
-    { temp2 = start_ptr;
+    else {
+        temp2 = start_ptr;
         // We know this is not NULL - list not empty!
-        while (temp2->nxt != NULL)
-        {  temp2 = temp2->nxt;
+        while (temp2->nxt != NULL) {
             // Move to next link in chain
+            temp2 = temp2->nxt;
         }
         temp2->nxt = temp;
     }
 }
 
+int count_list() {
+    node *temp;
+    temp = start_ptr;
+    if (temp == NULL) {
+        return 0;
+    }
+    else {
+        int counter = 0;
+        while (temp != NULL) {
+            counter++;
+            temp = temp->nxt;
+        }
+        return counter;
+    }
+}
+
+/*
 void display_list()
 {  node *temp;
     temp = start_ptr;
@@ -113,32 +124,4 @@ void delete_end_node()
         current = previous;
     }
 }
-
-int main(void)
-{  start_ptr = NULL;
-    do
-    {
-        display_list();
-        cout << endl;
-        cout << "Please select an option : " << endl;
-        cout << "0. Exit the program." << endl;
-        cout << "1. Add a node to the end of the list." << endl;
-        cout << "2. Delete the start node from the list." << endl;
-        cout << "3. Delete the end node from the list." << endl;
-        cout << "4. Move the current pointer on one node." << endl;
-        cout << "5. Move the current pointer back one node." << endl;
-        cout << endl << " >> ";
-        cin >> option;
-
-        switch (option)
-        {
-            case 1 : add_node_at_end(); break;
-            case 2 : delete_start_node(); break;
-            case 3 : delete_end_node(); break;
-            case 4 : move_current_on(); break;
-            case 5 : move_current_back();
-        }
-    }
-    while (option != 0);
-    return 0;
-}
+*/
