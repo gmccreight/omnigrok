@@ -1,4 +1,4 @@
-" Using Googletest, Google's C++ testing framework
+" Using Googletest, Google's C++ testing framework, version 1.4.0
 
 " Don't reload the NERDTree and grep options...
 if !exists('g:interviews_loaded')
@@ -14,19 +14,15 @@ if !exists('g:interviews_loaded')
     NERDTree
 endif
 
-" While trying to get the samples to work I needed to add /usr/local/lib to
-" the ld configuration.  I used the following command:
-" sudo bash -c 'echo /usr/local/lib >> /etc/ld.so.conf ' &&  sudo ldconfig
-" which was talked about in greater detail here:
-" http://groups.google.com/group/googletestframework/browse_thread/thread/871aeeca486073b3
-
+" Since every folder has a standard structure, it's easy to bounce between the
+" files.
 map ,t :execute "edit " . expand("%:h") . "/unittests.cc"<cr>
 map ,c :execute "edit " . expand("%:h") . "/code.cc"<cr>
 map ,h :execute "edit " . expand("%:h") . "/code.h"<cr>
 
 map <f4> :call RunUnitTestsForDir()<cr>
 
-" If directories are layed out a special way, it's easy to run the unit tests
+" If directories have a standard structure, it's easy to run the unit tests
 " in them.  See the 'linked_list' directory for an example.
 function! RunUnitTestsForDir()
     let cwd = getcwd()
@@ -37,3 +33,10 @@ function! RunUnitTestsForDir()
     !./unittests
     execute "cd " . cwd
 endfunction
+
+" Installation Notes:
+" While trying to get the samples to work I needed to add /usr/local/lib to
+" the ld configuration.  I used the following command:
+" sudo bash -c 'echo /usr/local/lib >> /etc/ld.so.conf ' &&  sudo ldconfig
+" which was talked about in greater detail here:
+" http://groups.google.com/group/googletestframework/browse_thread/thread/871aeeca486073b3
