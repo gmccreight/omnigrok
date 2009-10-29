@@ -31,6 +31,7 @@ function! RunUnitTestsForDir()
     !g++ $(gtest-config --cppflags --cxxflags) -o unittests.o -c unittests.cc
     !g++ $(gtest-config --ldflags --libs) -o unittests ../_gtest_shared/gtest_main.o code.o unittests.o
     !./unittests
+    silent !rm ./unittests
     execute "cd " . cwd
 endfunction
 

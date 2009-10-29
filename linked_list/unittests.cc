@@ -1,7 +1,7 @@
 #include "code.h"
 #include <gtest/gtest.h>
 
-TEST(NodesTest, AddTwoNodes) {
+TEST(NodesTestGrouping, AddTwoNodes) {
   delete_all_nodes();
   EXPECT_EQ(0, count_nodes());
   append_node(4);
@@ -10,7 +10,7 @@ TEST(NodesTest, AddTwoNodes) {
   EXPECT_EQ(2, count_nodes());
 }
 
-TEST(NodesTest, DeleteStartNode) {
+TEST(NodesTestGrouping, DeleteStartNode) {
   delete_all_nodes();
   EXPECT_EQ(0, count_nodes());
   append_node(4);
@@ -21,7 +21,7 @@ TEST(NodesTest, DeleteStartNode) {
   EXPECT_EQ(1, count_nodes());
 }
 
-TEST(NodesTest, DeleteAllNodes) {
+TEST(NodesTestGrouping, DeleteAllNodes) {
   delete_all_nodes();
   EXPECT_EQ(0, count_nodes());
   append_node(4);
