@@ -12,6 +12,9 @@ if !exists('g:interviews_loaded')
 
     " Open NERDTree
     NERDTree
+    /binary_tree
+    normal o
+    nohls
 endif
 
 " Since every folder has a standard structure, it's easy to bounce between the
@@ -29,6 +32,7 @@ function! RunUnitTestsForDir()
     execute "cd " . expand("%:h")
     !g++ -o code.o -c code.cc
     !g++ $(gtest-config --cppflags --cxxflags) -o unittests.o -c unittests.cc
+    silent !rm ./unittests
     !g++ $(gtest-config --ldflags --libs) -o unittests ../_gtest_shared/gtest_main.o code.o unittests.o
     !./unittests
     silent !rm ./unittests

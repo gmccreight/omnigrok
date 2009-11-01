@@ -4,7 +4,7 @@ using namespace std;
 // Adapted from: http://richardbowles.tripod.com/cpp/linklist/linklist.htm
 
 struct node
-{  
+{
     int value;
     node *nxt;        // Pointer to next node
 };
