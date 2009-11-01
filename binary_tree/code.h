@@ -17,6 +17,7 @@ struct node
 };
 
 int count_nodes(node *tree);
-//node* bal_tree_add(int value);
+node* bal_tree_add(node *tree, int value);
+node* bal_tree_find(node *tree, int value);
 
 #endif  // INTERVIEW_BINARY_TREE_
