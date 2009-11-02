@@ -9,17 +9,25 @@ struct node
     int value;
     node *left;
     node *right;
+    int height;
 
     node(int x) {
         value = x;
         left = NULL;
         right = NULL;
+        height = 1;
     }
 };
 
 int count_nodes(node *tree);
 node* bal_tree_add(node *tree, int value);
 node* bal_tree_find(node *tree, int value);
+node* move_left(node *tree);
+node* move_right(node *tree);
+node* swing_right(node * tree);
+node* swing_left(node * tree);
+node* balance_tree(node *tree);
+void set_height(node *tree);
 void bal_tree_traverse(node *tree, std::vector<int>& vec);
 
 #endif  // INTERVIEW_BINARY_TREE_

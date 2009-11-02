@@ -21,15 +21,32 @@ TEST(BinaryTreeTestGrouping, CountTree) {
 TEST(BinaryTreeTestGrouping, BalTreeAdd) {
     node *tree = bal_tree_add(NULL, 4);
     EXPECT_EQ(1, count_nodes(tree));
+    EXPECT_EQ(1, tree->height);
 
     tree = bal_tree_add(tree, 6);
     EXPECT_EQ(2, count_nodes(tree));
+    EXPECT_EQ(2, tree->height);
 
     tree = bal_tree_add(tree, 2);
     EXPECT_EQ(3, count_nodes(tree));
+    EXPECT_EQ(2, tree->height);
 
+    // These will be added to the left side.
+    // The tree height will raise to 3.
     tree = bal_tree_add(tree, 10);
     tree = bal_tree_add(tree, 12);
+    EXPECT_EQ(3, tree->height);
+
+    // These will add to the right side.
+    // The tree's height will stay the same.
+    tree = bal_tree_add(tree, 1);
+    tree = bal_tree_add(tree, 3);
+    EXPECT_EQ(3, tree->height);
+
+    // The tree is full and balanced.
+    // Adding one more element will increase the tree height.
+    tree = bal_tree_add(tree, 5);
+    EXPECT_EQ(4, tree->height);
 }
 
 TEST(BinaryTreeTestGrouping, BalTreeFind) {

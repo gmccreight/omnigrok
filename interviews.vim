@@ -17,11 +17,20 @@ if !exists('g:interviews_loaded')
     nohls
 endif
 
+" Switch to the buffer if it is open, otherwise 'edit' the file
+function! BufferOrEdit(filename)
+    if bufexists(a:filename)
+        execute "buffer " . a:filename
+    else
+        execute "edit " . a:filename
+    endif
+endfunction
+
 " Since every folder has a standard structure, it's easy to bounce between the
 " files.
-map ,t :execute "edit " . expand("%:h") . "/unittests.cc"<cr>
-map ,c :execute "edit " . expand("%:h") . "/code.cc"<cr>
-map ,h :execute "edit " . expand("%:h") . "/code.h"<cr>
+map ,t :call BufferOrEdit(expand("%:h") . "/unittests.cc")<cr>
+map ,c :call BufferOrEdit(expand("%:h") . "/code.cc")<cr>
+map ,h :call BufferOrEdit(expand("%:h") . "/code.h")<cr>
 
 map <f4> :call RunUnitTestsForDir()<cr>
 
