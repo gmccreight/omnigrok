@@ -53,13 +53,15 @@ TEST(BinaryTreeTestGrouping, BalTreeTraverse) {
     tree = bal_tree_add(tree, 2);
     tree = bal_tree_add(tree, 10);
     tree = bal_tree_add(tree, 12);
-    std::vector<int> v1;
-    bal_tree_traverse(tree, v1);
-    //std::cout << v1.size() << "\n";
-    //std::cout << v1.capacity() << "\n";
-    EXPECT_EQ(2, v1[0]);
-    EXPECT_EQ(4, v1[1]);
-    EXPECT_EQ(6, v1[2]);
-    EXPECT_EQ(10, v1[3]);
-    EXPECT_EQ(12, v1[4]);
+    tree = bal_tree_add(tree, 8);
+    std::vector<int> vec;
+    bal_tree_traverse(tree, vec);
+    //std::cout << vec.size() << "\n";
+    //std::cout << vec.capacity() << "\n";
+    EXPECT_EQ(2, vec[0]);
+    EXPECT_EQ(4, vec[1]);
+    EXPECT_EQ(6, vec[2]);
+    EXPECT_EQ(8, vec[3]);
+    EXPECT_EQ(10, vec[4]);
+    EXPECT_EQ(12, vec[5]);
 }
