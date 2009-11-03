@@ -1,4 +1,3 @@
-#include <iostream>
 #include "code.h"
 using namespace std;
 
@@ -134,9 +133,9 @@ node* bal_tree_find(node *tree, int value) {
     return NULL;
 }
 
-// Give this function a tree and an empty vector and it
+// Give this function a tree and an empty node pointer vector, it
 // will fill the vector with the values in the tree.
-void bal_tree_traverse(node *tree, std::vector<node*>& vec) {
+void bal_tree_traverse(node *tree, std::vector<node*> & vec) {
 
     if (tree == NULL) {
         return;
@@ -145,10 +144,6 @@ void bal_tree_traverse(node *tree, std::vector<node*>& vec) {
         if (tree->left != NULL) {
             bal_tree_traverse(tree->left, vec);
         }
-        //for (int x = 0; x <= tree->height; x++) {
-        //    cout << "  ";
-        //}
-        //cout << tree->value << "\n";
         vec.push_back(tree);
         if (tree->right != NULL) {
             bal_tree_traverse(tree->right, vec);

@@ -10,7 +10,8 @@ std::string itos(int i) // convert int to string
     return s.str();
 }
 
-// Traverse returns a vector, which can be pretty printed by this function
+// Traverse returns a vector of node pointers
+// that can be pretty printed into a string by this function
 std::string vector_pretty_print(std::vector<node*>& vec) {
 
     std::string results = "\n";
