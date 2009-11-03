@@ -1,5 +1,5 @@
-#ifndef INTERVIEW_LINKED_LIST_
-#define INTERVIEW_LINKED_LIST_
+#ifndef INTERVIEW_CODE_
+#define INTERVIEW_CODE_
 
 #include <iostream>
 
@@ -19,4 +19,4 @@ int count_nodes(node *list);
 node* delete_start_node(node *list);
 node* delete_all_nodes(node *list);
 
-#endif  // INTERVIEW_LINKED_LIST_
+#endif  // INTERVIEW_CODE_

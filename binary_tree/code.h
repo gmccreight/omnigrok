@@ -1,5 +1,5 @@
-#ifndef INTERVIEW_BINARY_TREE_
-#define INTERVIEW_BINARY_TREE_
+#ifndef INTERVIEW_CODE_
+#define INTERVIEW_CODE_
 
 #include <iostream>
 #include <vector> // Used to check the traverse values of the tree
@@ -31,4 +31,4 @@ node* balance_tree(node *tree);
 void set_height(node *tree);
 void bal_tree_traverse(node *tree, std::vector<node*> & vec);
 
-#endif  // INTERVIEW_BINARY_TREE_
+#endif  // INTERVIEW_CODE_
