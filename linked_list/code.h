@@ -1,9 +1,22 @@
 #ifndef INTERVIEW_LINKED_LIST_
 #define INTERVIEW_LINKED_LIST_
 
-void append_node(int value);
-int count_nodes(void);
-void delete_start_node(void);
-void delete_all_nodes(void);
+#include <iostream>
+
+struct node
+{
+    int value;
+    node *nxt;        // Pointer to next node
+
+    node(int x) {
+        value = x;
+        nxt = NULL;
+    }
+};
+
+node* append_node(node *list, int value);
+int count_nodes(node *list);
+node* delete_start_node(node *list);
+node* delete_all_nodes(node *list);
 
 #endif  // INTERVIEW_LINKED_LIST_
