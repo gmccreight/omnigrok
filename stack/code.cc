@@ -1,31 +1,32 @@
 #include "code.h"
 
-void push(node *&list, int value) {
+// [tag:ref_to_pntr:gem]
+void push(node *&stack, int value) {
     node *newnode = new node(value);
 
     // Set up link to this node
-    if (list == NULL) {
-        list = newnode;
+    if (stack == NULL) {
+        stack = newnode;
     }
     else {
-        newnode->nxt = list;
-        list = newnode;
+        newnode->nxt = stack;
+        stack = newnode;
     }
 }
 
-int pop(node *&list) {
+int pop(node *&stack) {
 
     node *temp;
-    if (list == NULL) {
+    if (stack == NULL) {
         return NULL;
     }
-    if (list->nxt == NULL) {
-        temp = list;
-        list = NULL;
+    if (stack->nxt == NULL) {
+        temp = stack;
+        stack = NULL;
         return temp->value;
     }
 
-    temp = list;
-    list = list->nxt;
+    temp = stack;
+    stack = stack->nxt;
     return temp->value;
 }

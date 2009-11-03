@@ -14,7 +14,7 @@ struct node
     }
 };
 
-void push(node *&list, int value);
-int pop(node *&list);
+void push(node *&stack, int value);
+int pop(node *&stack);
 
 #endif  // INTERVIEW_CODE_
