@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector> // Used to check the traverse values of the tree
+#include <string> // Used to create a pretty printed version of the tree
 
 struct node
 {
@@ -28,6 +29,6 @@ node* swing_right(node * tree);
 node* swing_left(node * tree);
 node* balance_tree(node *tree);
 void set_height(node *tree);
-void bal_tree_traverse(node *tree, std::vector<int>& vec);
+void bal_tree_traverse(node *tree, std::vector<node*>& vec);
 
 #endif  // INTERVIEW_BINARY_TREE_

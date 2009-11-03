@@ -1,6 +1,31 @@
 #include "code.h"
 #include <gtest/gtest.h>
 
+#include <sstream> //required by the itos function below
+
+std::string itos(int i) // convert int to string
+{
+    std::stringstream s;
+    s << i;
+    return s.str();
+}
+
+// Traverse returns a vector, which can be pretty printed by this function
+std::string vector_pretty_print(std::vector<node*>& vec) {
+
+    std::string results = "\n";
+    int vec_size = vec.size();
+    for (int x = 0; x < vec_size; x++) {
+        node *tree = vec[x];
+        for (int y = 0; y < tree->height; y++) {
+            results.append("    ");
+        }
+        results.append(itos(tree->value));
+        results.append("\n");
+    }
+    return results;
+}
+
 TEST(BinaryTreeTestGrouping, CountTree) {
     // Build a tree manually counting the nodes while it's created
     node *tree = new node(4);
@@ -64,21 +89,57 @@ TEST(BinaryTreeTestGrouping, BalTreeFind) {
 
 }
 
-TEST(BinaryTreeTestGrouping, BalTreeTraverse) {
+TEST(BinaryTreeTestGrouping, SimpleBalTreeTraverse) {
     node *tree = bal_tree_add(NULL, 4);
     tree = bal_tree_add(tree, 6);
     tree = bal_tree_add(tree, 2);
     tree = bal_tree_add(tree, 10);
     tree = bal_tree_add(tree, 12);
     tree = bal_tree_add(tree, 8);
-    std::vector<int> vec;
+
+    std::vector<node*> vec;
     bal_tree_traverse(tree, vec);
-    //std::cout << vec.size() << "\n";
-    //std::cout << vec.capacity() << "\n";
-    EXPECT_EQ(2, vec[0]);
-    EXPECT_EQ(4, vec[1]);
-    EXPECT_EQ(6, vec[2]);
-    EXPECT_EQ(8, vec[3]);
-    EXPECT_EQ(10, vec[4]);
-    EXPECT_EQ(12, vec[5]);
+
+    std::string expected = "\n";
+    expected.append("    2\n");
+    expected.append("        4\n");
+    expected.append("            6\n");
+    expected.append("    8\n");
+    expected.append("        10\n");
+    expected.append("    12\n");
+
+    std::string results = vector_pretty_print(vec);
+
+    EXPECT_EQ(expected, results);
+}
+
+TEST(BinaryTreeTestGrouping, ComplexBalTreeTraverse) {
+    node *tree = bal_tree_add(NULL, 4);
+    tree = bal_tree_add(tree, 6);
+    tree = bal_tree_add(tree, 2);
+    tree = bal_tree_add(tree, 10);
+    tree = bal_tree_add(tree, 12);
+    tree = bal_tree_add(tree, 8);
+    // Here's where it deviates from the SimpleBalTreeTraverse function
+    tree = bal_tree_add(tree, 5);
+    tree = bal_tree_add(tree, 14);
+    tree = bal_tree_add(tree, 11);
+
+    std::vector<node*> vec;
+    bal_tree_traverse(tree, vec);
+
+    std::string expected = "\n";
+    expected.append("    2\n");
+    expected.append("        4\n");
+    expected.append("    5\n");
+    expected.append("                6\n");
+    expected.append("    8\n");
+    expected.append("            10\n");
+    expected.append("    11\n");
+    expected.append("        12\n");
+    expected.append("    14\n");
+
+    std::string results = vector_pretty_print(vec);
+
+    EXPECT_EQ(expected, results);
 }

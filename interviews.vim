@@ -40,6 +40,7 @@ function! RunUnitTestsForDir()
     let cwd = getcwd()
     execute "cd " . expand("%:h")
     !g++ -o code.o -c code.cc
+    silent !rm unittests.o
     !g++ $(gtest-config --cppflags --cxxflags) -o unittests.o -c unittests.cc
     silent !rm ./unittests
     !g++ $(gtest-config --ldflags --libs) -o unittests ../_gtest_shared/gtest_main.o code.o unittests.o
