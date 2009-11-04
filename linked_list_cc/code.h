@@ -14,9 +14,9 @@ struct node
     }
 };
 
-node* append_node(node *list, int value);
-int count_nodes(node *list);
-node* delete_start_node(node *list);
-node* delete_all_nodes(node *list);
+void append_node(node **list, int value);
+bool insert_node(node **list, node *dest, node *newnode);
+int count_nodes(node **list);
+void delete_all_nodes(node **list);
 
 #endif  // INTERVIEW_CODE_

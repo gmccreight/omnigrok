@@ -1,6 +1,6 @@
 #include "code.h"
 
-// [tag:ref_to_pntr:gem]
+// [tag:ref_to_ptr:gem] See also the linked_list_cc for [tag:ptr_to_ptr:gem] usage
 void push(node *&stack, int value) {
     node *newnode = new node(value);
 

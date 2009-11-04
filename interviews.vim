@@ -32,21 +32,28 @@ map ,t :call BufferOrEdit(expand("%:h") . "/unittests.cc")<cr>
 map ,c :call BufferOrEdit(expand("%:h") . "/code.cc")<cr>
 map ,h :call BufferOrEdit(expand("%:h") . "/code.h")<cr>
 
-map <f4> :call RunUnitTestsForDir()<cr>
+map <c-j> :call RunUnitTestsForDir()<cr>
 
 " If directories have a standard structure, it's easy to run the unit tests
 " in them.  See the 'linked_list' directory for an example.
 function! RunUnitTestsForDir()
     let cwd = getcwd()
-    execute "cd " . expand("%:h")
-    silent !rm *.o
-    !g++ -o code.o -c code.cc
-    !g++ $(gtest-config --cppflags --cxxflags) -o unittests.o -c unittests.cc
-    silent !rm ./unittests
-    !g++ $(gtest-config --ldflags --libs) -o unittests ../_gtest_shared/gtest_main.o code.o unittests.o
-    !./unittests
-    silent !rm ./unittests
-    silent !rm *.o
+    let dir = expand("%:h")
+    execute "cd " . dir
+
+    " If it's a c++ test
+    if match(dir, "_cc$") > 0
+        write
+        silent !rm *.o
+        !g++ -o code.o -c code.cc
+        !g++ $(gtest-config --cppflags --cxxflags) -o unittests.o -c unittests.cc
+        silent !rm ./unittests
+        !g++ $(gtest-config --ldflags --libs) -o unittests ../_gtest_shared/gtest_main.o code.o unittests.o
+        !./unittests
+        silent !rm ./unittests
+        silent !rm *.o
+    endif
+
     execute "cd " . cwd
 endfunction
 
