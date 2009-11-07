@@ -12,7 +12,7 @@ if !exists('g:interviews_loaded')
 
     " Open NERDTree
     NERDTree
-    /binary_tree
+    /stack_c/
     normal o
     nohls
 endif
@@ -54,7 +54,7 @@ function! RunUnitTestsForDir()
         !gcc -o code.o -c code.c
         !gcc -o unittests.o -c unittests.c
         silent !rm ./unittests
-        !gcc -o unittests code.o unittests.o
+        !gcc -o unittests ../_test_c_check/src/*.o code.o unittests.o
         !./unittests
         silent !rm ./unittests
         silent !rm *.o
