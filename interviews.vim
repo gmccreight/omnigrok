@@ -19,17 +19,23 @@ endif
 
 " Switch to the buffer if it is open, otherwise 'edit' the file
 function! BufferOrEdit(filename)
-    if bufexists(a:filename)
+    if bufexists(a:filename . "c")
+        execute "buffer " . a:filename . "c"
+    elseif bufexists(a:filename)
         execute "buffer " . a:filename
     else
-        execute "edit " . a:filename
+        if filereadable(a:filename . "c")
+            execute "edit " . a:filename . "c"
+        else
+            execute "edit " . a:filename
+        endif
     endif
 endfunction
 
 " Since every folder has a standard structure, it's easy to bounce between the
 " files.
-map ,t :call BufferOrEdit(expand("%:h") . "/unittests.cc")<cr>
-map ,c :call BufferOrEdit(expand("%:h") . "/code.cc")<cr>
+map ,t :call BufferOrEdit(expand("%:h") . "/unittests.c")<cr>
+map ,c :call BufferOrEdit(expand("%:h") . "/code.c")<cr>
 map ,h :call BufferOrEdit(expand("%:h") . "/code.h")<cr>
 
 map <c-j> :call RunUnitTestsForDir()<cr>
@@ -41,14 +47,25 @@ function! RunUnitTestsForDir()
     let dir = expand("%:h")
     execute "cd " . dir
 
-    " If it's a c++ test
-    if match(dir, "_cc$") > 0
+    if match(dir, "_c$") > 0
+        " It's a C directory
+        write
+        silent !rm *.o
+        !gcc -o code.o -c code.c
+        !gcc -o unittests.o -c unittests.c
+        silent !rm ./unittests
+        !gcc -o unittests code.o unittests.o
+        !./unittests
+        silent !rm ./unittests
+        silent !rm *.o
+    elseif match(dir, "_cc$") > 0
+        " It's a C++ directory
         write
         silent !rm *.o
         !g++ -o code.o -c code.cc
         !g++ $(gtest-config --cppflags --cxxflags) -o unittests.o -c unittests.cc
         silent !rm ./unittests
-        !g++ $(gtest-config --ldflags --libs) -o unittests ../_gtest_shared/gtest_main.o code.o unittests.o
+        !g++ $(gtest-config --ldflags --libs) -o unittests ../_test_cc_gtest/gtest_main.o code.o unittests.o
         !./unittests
         silent !rm ./unittests
         silent !rm *.o
