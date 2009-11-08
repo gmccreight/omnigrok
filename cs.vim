@@ -1,8 +1,8 @@
 " Using Googletest, Google's C++ testing framework, version 1.4.0
 
 " Don't reload the NERDTree and grep options...
-if !exists('g:interviews_loaded')
-    let g:interviews_loaded = 1
+if !exists('g:cs_loaded')
+    let g:cs_loaded = 1
 
     " Set the EasyGrep options
     let g:EasyGrepRecursive = 1
@@ -19,23 +19,33 @@ endif
 
 " Switch to the buffer if it is open, otherwise 'edit' the file
 function! BufferOrEdit(filename)
-    if bufexists(a:filename . "c")
-        execute "buffer " . a:filename . "c"
-    elseif bufexists(a:filename)
-        execute "buffer " . a:filename
-    else
-        if filereadable(a:filename . "c")
-            execute "edit " . a:filename . "c"
-        else
-            execute "edit " . a:filename
+    let fname = filename
+
+    " If an extension isn't already specified, then figure it out based on
+    " directory type
+    if match(dir, "\.") < 0
+        let dir = expand("%:h")
+        if match(dir, "_c$") > 0
+            " It's a C directory
+            let fname = a:filename . ".c"
+        elseif match(dir, "_cc$") > 0
+            " It's a C++ directory
+            let fname = a:filename . ".cc"
         endif
     endif
+
+    if bufexists(fname)
+        execute "buffer " . fname
+    else
+        execute "edit " . a:filename
+    endif
+
 endfunction
 
 " Since every folder has a standard structure, it's easy to bounce between the
 " files.
-map ,t :call BufferOrEdit(expand("%:h") . "/unittests.c")<cr>
-map ,c :call BufferOrEdit(expand("%:h") . "/code.c")<cr>
+map ,t :call BufferOrEdit(expand("%:h") . "/unittests")<cr>
+map ,c :call BufferOrEdit(expand("%:h") . "/code")<cr>
 map ,h :call BufferOrEdit(expand("%:h") . "/code.h")<cr>
 
 map <c-j> :call RunUnitTestsForDir()<cr>

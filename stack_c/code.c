@@ -16,21 +16,22 @@ void push(Node **stack, int value) {
         stack = &newnode;
     }
 }
+
 /*
 int pop(Node **stack) {
 
     Node *temp;
-    if (stack == NULL) {
+    if (&stack == NULL) {
         return NULL;
     }
-    if (stack->nxt == NULL) {
-        temp = stack;
+    if (&stack->nxt == NULL) {
+        temp = &stack;
         stack = NULL;
         return temp->value;
     }
 
-    temp = stack;
-    stack = stack->nxt;
+    temp = &stack;
+    stack = &stack->nxt;
     return temp->value;
 }
 */
