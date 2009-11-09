@@ -1,5 +1,5 @@
-#ifndef INTERVIEW_CODE_
-#define INTERVIEW_CODE_
+#ifndef CS_CODE_
+#define CS_CODE_
 
 #include <iostream>
 
@@ -17,4 +17,4 @@ struct node
 void push(node *&stack, int value);
 int pop(node *&stack);
 
-#endif  // INTERVIEW_CODE_
+#endif  // CS_CODE_

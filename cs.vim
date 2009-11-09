@@ -8,7 +8,7 @@ if !exists('g:cs_loaded')
     let g:EasyGrepRecursive = 1
     source $HOME/.vim/plugin/EasyGrep.vim
     " Set user-defined files for grepping
-    execute "normal \\vojjj\<cr>*.cc *.h\<cr>q"
+    execute "normal \\vojjj\<cr>*.c *.cc *.h\<cr>q"
 
     " Open NERDTree
     NERDTree

@@ -1,5 +1,5 @@
-#ifndef INTERVIEW_CODE_
-#define INTERVIEW_CODE_
+#ifndef CS_CODE_
+#define CS_CODE_
 
 #include <stdlib.h>
 #include <stdbool.h>
@@ -15,4 +15,4 @@ bool push(Node **stack, int value);
 bool pop(Node **stack, int *value);
 bool delete_stack(Node **stack);
 
-#endif  // INTERVIEW_CODE_
+#endif  // CS_CODE_

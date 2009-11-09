@@ -1,5 +1,5 @@
-#ifndef INTERVIEW_CODE_
-#define INTERVIEW_CODE_
+#ifndef CS_CODE_
+#define CS_CODE_
 
 #include <iostream>
 
@@ -19,4 +19,4 @@ bool insert_node(node **list, node *dest, node *newnode);
 int count_nodes(node **list);
 void delete_all_nodes(node **list);
 
-#endif  // INTERVIEW_CODE_
+#endif  // CS_CODE_
