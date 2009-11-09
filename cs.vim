@@ -19,25 +19,25 @@ endif
 
 " Switch to the buffer if it is open, otherwise 'edit' the file
 function! BufferOrEdit(filename)
-    let fname = filename
+    let fname = a:filename
 
-    " If an extension isn't already specified, then figure it out based on
+    " If a file extension isn't already specified, figure it out based on
     " directory type
-    if match(dir, "\.") < 0
+    if match(fname, "\\.") < 0
         let dir = expand("%:h")
         if match(dir, "_c$") > 0
             " It's a C directory
-            let fname = a:filename . ".c"
+            let fname = fname . ".c"
         elseif match(dir, "_cc$") > 0
             " It's a C++ directory
-            let fname = a:filename . ".cc"
+            let fname = fname . ".cc"
         endif
     endif
 
     if bufexists(fname)
         execute "buffer " . fname
     else
-        execute "edit " . a:filename
+        execute "edit " . fname
     endif
 
 endfunction
