@@ -37,6 +37,7 @@ bool pop(Node **stack_ptr_ptr, int *value) {
     *value = node_ptr->value;
     *stack_ptr_ptr = node_ptr->nxt;
     free(node_ptr);
+    return true;
 }
 
 bool delete_stack(Node **stack) {
