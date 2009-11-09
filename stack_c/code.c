@@ -22,7 +22,6 @@ void push(Node **stack_ptr_ptr, int value) {
     }
 }
 
-
 int pop(Node **stack) {
 
 //    return (*stack)->value;

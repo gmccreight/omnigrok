@@ -23,6 +23,15 @@ START_TEST (test_ptr_to_ptr)
 }
 END_TEST
 
+START_TEST (test_push_null_stack)
+{
+  Node *null_node_ptr = NULL;
+  Node **stack = &null_node_ptr;
+  push(stack, 6);
+  fail_unless( (*stack)->value == 6, "the value was pushed on correctly");
+}
+END_TEST
+
 START_TEST (test_push)
 {
   //Test just the pushing works correctly
@@ -48,6 +57,7 @@ Suite * stack_suite (void) {
   TCase *tc_core = tcase_create ("Core");
   tcase_add_checked_fixture (tc_core, setup, teardown);
   tcase_add_test (tc_core, test_ptr_to_ptr);
+  tcase_add_test (tc_core, test_push_null_stack);
   tcase_add_test (tc_core, test_push);
   tcase_add_test (tc_core, test_push_and_pop);
   suite_add_tcase (s, tc_core);
