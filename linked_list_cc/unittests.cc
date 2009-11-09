@@ -13,7 +13,7 @@ TEST(NodesTestGrouping, AppendSomeNodes) {
 TEST(NodesTestGrouping, InsertNode) {
   node *list = NULL;
   EXPECT_EQ(0, count_nodes(&list));
-  
+
   // Cannot insert because the "list" pointer in the "insert_after" points to a
   // null value.
   EXPECT_EQ(false, insert_node(&list, list, new node(4)));
@@ -24,7 +24,7 @@ TEST(NodesTestGrouping, InsertNode) {
   // Insert another one after the head
   EXPECT_EQ(true, insert_node(&list, list, new node(4)));
   EXPECT_EQ(2, count_nodes(&list));
-  
+
   // Insert another one after the head
   EXPECT_EQ(true, insert_node(&list, list, new node(2)));
   EXPECT_EQ(3, count_nodes(&list));
@@ -43,7 +43,7 @@ TEST(NodesTestGrouping, InsertNode) {
   EXPECT_EQ(3, list->nxt->nxt->value); // Newly inserted
   EXPECT_EQ(4, list->nxt->nxt->nxt->value);
   EXPECT_EQ(NULL, list->nxt->nxt->nxt->nxt);
-  
+
   // Finally, insert one at the end of the list
   EXPECT_EQ(true, insert_node(&list, list->nxt->nxt->nxt, new node(5)));
   EXPECT_EQ(5, count_nodes(&list));
