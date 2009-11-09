@@ -25,29 +25,71 @@ END_TEST
 
 START_TEST (test_push_null_stack)
 {
-  Node *null_node_ptr = NULL;
-  Node **stack = &null_node_ptr;
+  //Node *null_node_ptr = NULL;
+  //Node **stack = &null_node_ptr;
+
+  Node **stack;
+  create_stack(stack);
   push(stack, 6);
   fail_unless( (*stack)->value == 6, "the value was pushed on correctly");
 }
 END_TEST
 
-START_TEST (test_push)
+
+START_TEST (test_push_pre_existing_stack)
 {
-  //Test just the pushing works correctly
   node_ptr->value = 10;
   fail_unless( node_ptr->value == 10, "ptr");
 
   Node **stack = &node_ptr;
-  push(stack, 4);
+  fail_unless( push(stack, 4) == true, "the push was successful");
   fail_unless( (*stack)->value == 4, "the value was pushed on correctly");
   fail_unless( (*stack)->nxt->value == 10, "the initial value is still correct");
 }
 END_TEST
 
-START_TEST (test_push_and_pop)
+START_TEST (test_pop)
 {
-  fail_unless(1 == 1, "one does equal one");
+  Node *null_node_ptr = NULL;
+  Node **stack = &null_node_ptr;
+  push(stack, 5);
+  push(stack, 8);
+
+  int value = 0;
+
+  fail_unless(pop(stack, &value) == true, "The first pop succeeded");
+  fail_unless(value == 8, "The most recent value");
+
+  fail_unless(pop(stack, &value) == true, "The second pop succeeded");
+  fail_unless(value == 5, "The initial value");
+
+  fail_unless(pop(stack, &value) == false, "The pop failed because the stack is empty");
+  fail_unless(value == 0, "The most recent value is 0");
+
+}
+END_TEST
+
+START_TEST (test_full_cycle)
+{
+  Node **stack;
+  create_stack(stack);
+  fail_unless( push(stack, 6), true, "6 was successfully pushed onto the stack");
+  fail_unless( (*stack)->value == 6, "the internals are correct");
+  fail_unless( push(stack, 10), true, "10 was successfully pushed onto the stack");
+  fail_unless( (*stack)->value == 10, "the internals are correct");
+
+  int popped_value = 0;
+  fail_unless(pop(stack, &popped_value) == true, "The first pop succeeded");
+  fail_unless(popped_value == 10, "The most recent value");
+
+  fail_unless(pop(stack, &popped_value) == true, "The second pop succeeded");
+  fail_unless(popped_value == 6, "The initial value");
+  
+  fail_unless(pop(stack, &popped_value) == false, "The pop failed because the stack is empty");
+  fail_unless(popped_value == 0, "The most recent value is 0");
+
+  fail_unless(delete_stack(stack) == true, "The stack was successfully deleted");
+
 }
 END_TEST
 
@@ -58,8 +100,9 @@ Suite * stack_suite (void) {
   tcase_add_checked_fixture (tc_core, setup, teardown);
   tcase_add_test (tc_core, test_ptr_to_ptr);
   tcase_add_test (tc_core, test_push_null_stack);
-  tcase_add_test (tc_core, test_push);
-  tcase_add_test (tc_core, test_push_and_pop);
+  tcase_add_test (tc_core, test_push_pre_existing_stack);
+  tcase_add_test (tc_core, test_pop);
+  tcase_add_test (tc_core, test_full_cycle);
   suite_add_tcase (s, tc_core);
 
   return s;

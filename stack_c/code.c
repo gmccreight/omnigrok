@@ -1,18 +1,21 @@
 #include "code.h"
 
+bool create_stack(Node **stack) {
+    *stack = NULL;
+    return true;
+}
 
-void push(Node **stack_ptr_ptr, int value) {
+bool push(Node **stack_ptr_ptr, int value) {
 
     Node *newnode;
     newnode = (Node *) malloc(sizeof(Node));
     if (newnode == NULL) {
         // The memory allocation failed
-        return;
+        return false;
     }
 
     newnode->value = value;
 
-    //Set up link to this node
     if (stack_ptr_ptr == NULL) {
         *stack_ptr_ptr = newnode;
     }
@@ -20,17 +23,30 @@ void push(Node **stack_ptr_ptr, int value) {
         newnode->nxt = *stack_ptr_ptr;
         *stack_ptr_ptr = newnode;
     }
+
+    return true;
 }
 
-int pop(Node **stack) {
+bool pop(Node **stack_ptr_ptr, int *value) {
+    Node *node_ptr;
+    if (!(node_ptr = *stack_ptr_ptr)) {
+        *value = 0;
+        return false;
+    }
 
-//    return (*stack)->value;
+    *value = node_ptr->value;
+    *stack_ptr_ptr = node_ptr->nxt;
+    free(node_ptr);
+}
 
-    //Node *node;
-    //if (!(node = *stack)) return 0;
+bool delete_stack(Node **stack) {
 
-    //int value = node->value;
-    //*stack = node->nxt;
-    //delete node;
-    //return value;
+    Node *next;
+    while(*stack) {
+        next = (*stack)->nxt;
+        free(*stack);
+        *stack = next;
+    }
+
+    return true;
 }
