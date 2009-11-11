@@ -3,18 +3,21 @@
 
 #include <iostream>
 
-struct node
-{
-    int value;
-    node *nxt;        // Pointer to next node
+//#define E_EMPTY "the stack is empty"
 
-    node(int x) {
-        value = x;
-        nxt = NULL;
-    }
+class Stack {
+    public:
+        Stack();
+        ~Stack();
+        void push (int value);
+        int pop();
+    protected:
+        typedef struct Node {
+            struct Node *nxt;
+            int value;
+        } Node;
+
+    Node *head;
 };
-
-void push(node *&stack, int value);
-int pop(node *&stack);
 
 #endif  // CS_CODE_

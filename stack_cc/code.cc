@@ -1,32 +1,36 @@
 #include "code.h"
 
-// [tag:ref_to_ptr:gem] See also the linked_list_cc for [tag:ptr_to_ptr:gem] usage
-void push(node *&stack, int value) {
-    node *newnode = new node(value);
-
-    // Set up link to this node
-    if (stack == NULL) {
-        stack = newnode;
-    }
-    else {
-        newnode->nxt = stack;
-        stack = newnode;
-    }
+Stack::Stack() {
+    head = NULL;
+    return;
 }
 
-int pop(node *&stack) {
-
-    node *temp;
-    if (stack == NULL) {
-        return NULL;
+Stack::~Stack() {
+    while (head) {
+        Node *next = head->nxt;
+        delete head;
+        head = next;
     }
-    if (stack->nxt == NULL) {
-        temp = stack;
-        stack = NULL;
-        return temp->value;
+    return;
+}
+
+void Stack::push(int value) {
+    Node *node = new Node;
+    node->value = value;
+    node->nxt = head;
+    head = node;
+    return;
+}
+
+int Stack::pop() {
+    Node *popNode = head;
+    if (head == NULL) {
+        //throw StackError(E_EMPTY);
+        throw "stack is empty";
     }
 
-    temp = stack;
-    stack = stack->nxt;
-    return temp->value;
+    int value = head->value;
+    head = head->nxt;
+    delete popNode;
+    return value;
 }
