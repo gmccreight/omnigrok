@@ -25,6 +25,7 @@ void Stack::push(int value) {
 int Stack::pop() {
     Node *popNode = head;
     if (head == NULL) {
+        //[tag:todo:gem]
         //throw StackError(E_EMPTY);
         throw "stack is empty";
     }

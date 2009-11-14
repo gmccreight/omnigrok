@@ -35,4 +35,5 @@ TEST(StackTestGrouping, PushAndPop) {
         SUCCEED() << "An exception was thrown, as expected.";
     }
 
+    //[tag:todo:gem] we should somehow test the destructor, too
 }
