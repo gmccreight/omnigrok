@@ -1,4 +1,3 @@
-" Using Googletest, Google's C++ testing framework, version 1.4.0
 
 " Don't reload the NERDTree and grep options...
 if !exists('g:cs_loaded')
@@ -12,7 +11,7 @@ if !exists('g:cs_loaded')
 
     " Open NERDTree
     NERDTree
-    /stack_c/
+    /stack_cc/
     normal o
     nohls
 endif
@@ -31,13 +30,18 @@ function! BufferOrEdit(filename)
         elseif match(dir, "_cc$") > 0
             " It's a C++ directory
             let fname = fname . ".cc"
+        elseif match(dir, "_rb$") > 0
+            " It's a Ruby directory
+            let fname = fname . ".rb"
         endif
     endif
 
     if bufexists(fname)
         execute "buffer " . fname
     else
-        execute "edit " . fname
+        if filereadable(fname)
+            execute "edit " . fname
+        endif
     endif
 
 endfunction
@@ -47,6 +51,7 @@ endfunction
 map ,t :call BufferOrEdit(expand("%:h") . "/unittests")<cr>
 map ,c :call BufferOrEdit(expand("%:h") . "/code")<cr>
 map ,h :call BufferOrEdit(expand("%:h") . "/code.h")<cr>
+map ,p :call BufferOrEdit(expand("%:h") . "/practice")<cr>
 
 map <c-j> :call RunUnitTestsForDir()<cr>
 
@@ -55,13 +60,20 @@ map <c-j> :call RunUnitTestsForDir()<cr>
 function! RunUnitTestsForDir()
     let cwd = getcwd()
     let dir = expand("%:h")
+    let current_file = expand("%")
+
     execute "cd " . dir
+    
+    " If you happen to be editing the practice file, then compile using the
+    " practice file instead of the standard "code" file
+    let sourcecode = match(current_file, "practice") > 0 ? "practice" : "code" 
 
     if match(dir, "_c$") > 0
         " It's a C directory
+        " Using Check, a unit testing framework for C
         write
         silent !rm *.o
-        !gcc -o code.o -c code.c
+        exec "!gcc -o code.o -c " . sourcecode . ".c"
         !gcc -o unittests.o -c unittests.c
         silent !rm ./unittests
         !gcc -o unittests ../_test_c_check/src/*.o code.o unittests.o
@@ -70,15 +82,23 @@ function! RunUnitTestsForDir()
         silent !rm *.o
     elseif match(dir, "_cc$") > 0
         " It's a C++ directory
+        " Using Googletest, Google's C++ testing framework, version 1.4.0
         write
         silent !rm *.o
-        !g++ -o code.o -c code.cc
+        exec "!g++ -o code.o -c " . sourcecode . ".cc"
         !g++ $(gtest-config --cppflags --cxxflags) -o unittests.o -c unittests.cc
         silent !rm ./unittests
         !g++ $(gtest-config --ldflags --libs) -o unittests ../_test_cc_gtest/gtest_main.o code.o unittests.o
         !./unittests
         silent !rm ./unittests
         silent !rm *.o
+    elseif match(dir, "_rb$") > 0
+        " It's a ruby directory
+        " Using test unit
+        write
+        exec "!cp " . sourcecode . ".rb code_or_practice_copied.rb" 
+        !ruby unittests.rb 
+        silent !rm code_or_practice_copied.rb 
     endif
 
     execute "cd " . cwd
