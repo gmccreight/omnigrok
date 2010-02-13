@@ -1,4 +1,3 @@
-
 " Don't reload the NERDTree and grep options...
 if !exists('g:cs_loaded')
     let g:cs_loaded = 1
@@ -33,6 +32,9 @@ function! BufferOrEdit(filename)
         elseif match(dir, "_rb$") > 0
             " It's a Ruby directory
             let fname = fname . ".rb"
+        elseif match(dir, "_js$") > 0
+            " It's a Javascript directory
+            let fname = fname . ".js"
         endif
     endif
 
@@ -99,6 +101,13 @@ function! RunUnitTestsForDir()
         exec "!cp " . sourcecode . ".rb code_or_practice_copied.rb" 
         !ruby unittests.rb 
         silent !rm code_or_practice_copied.rb 
+    elseif match(dir, "_js$") > 0
+        " It's a Javascript directory
+        " Using test unit
+        write
+        exec "!cp " . sourcecode . ".js code_or_practice_copied.js" 
+        !java org.mozilla.javascript.tools.shell.Main unittests.js 
+        silent !rm code_or_practice_copied.js
     endif
 
     execute "cd " . cwd
