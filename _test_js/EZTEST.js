@@ -11,16 +11,16 @@ var EZTEST = {};
 
     EZTEST.is = function (expected, actual, message) {
         if (expected == actual) {
-            assertion_result(1, message);
+            assertion_result(1, expected, actual, message);
         }
         else {
-            assertion_result(0, message);
+            assertion_result(0, expected, actual, message);
         }
     }
 
-    function assertion_result (ok, message) {
+    function assertion_result (ok, expected, actual, message) {
         if (ok == 0) {
-            print("not ok: " + message);
+            print("not ok: Expected - " + expected + " got - " + actual + " --- " + message);
             failures.push(message);
         }
         else {
