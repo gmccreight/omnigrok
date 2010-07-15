@@ -103,19 +103,12 @@ function! RunUnitTestsForDir()
         silent !rm code_or_practice_copied.rb 
     elseif match(dir, "_js$") > 0
         " It's a Javascript directory
-        " Using test unit
+        " Uses Rhino
         write
         exec "!cp " . sourcecode . ".js code_or_practice_copied.js" 
-        !java org.mozilla.javascript.tools.shell.Main unittests.js 
+        !java -jar ../_test_js/js.jar unittests.js 
         silent !rm code_or_practice_copied.js
     endif
 
     execute "cd " . cwd
 endfunction
-
-" Installation Notes:
-" While trying to get the samples to work I needed to add /usr/local/lib to
-" the ld configuration.  I used the following command:
-" sudo bash -c 'echo /usr/local/lib >> /etc/ld.so.conf ' &&  sudo ldconfig
-" which was talked about in greater detail here:
-" http://groups.google.com/group/googletestframework/browse_thread/thread/871aeeca486073b3
