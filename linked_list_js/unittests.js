@@ -1,5 +1,5 @@
-load("../_test_js/ENV.js");
-load("../_test_js/EZTEST.js");
+load("../_test/js/ENV.js");
+load("../_test/js/EZTEST.js");
 load("code_or_practice_copied.js");
 
 start();

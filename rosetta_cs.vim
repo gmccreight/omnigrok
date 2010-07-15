@@ -78,7 +78,7 @@ function! RunUnitTestsForDir()
         exec "!gcc -o code.o -c " . sourcecode . ".c"
         !gcc -o unittests.o -c unittests.c
         silent !rm ./unittests
-        !gcc -o unittests ../_test_c_check/src/*.o code.o unittests.o
+        !gcc -o unittests ../_test/c_check/src/*.o code.o unittests.o
         !./unittests
         silent !rm ./unittests
         silent !rm *.o
@@ -90,7 +90,7 @@ function! RunUnitTestsForDir()
         exec "!g++ -o code.o -c " . sourcecode . ".cc"
         !g++ $(gtest-config --cppflags --cxxflags) -o unittests.o -c unittests.cc
         silent !rm ./unittests
-        !g++ $(gtest-config --ldflags --libs) -o unittests ../_test_cc_gtest/gtest_main.o code.o unittests.o
+        !g++ $(gtest-config --ldflags --libs) -o unittests ../_test/cc_gtest/gtest_main.o code.o unittests.o
         !./unittests
         silent !rm ./unittests
         silent !rm *.o
@@ -106,7 +106,7 @@ function! RunUnitTestsForDir()
         " Uses Rhino
         write
         exec "!cp " . sourcecode . ".js code_or_practice_copied.js" 
-        !java -jar ../_test_js/js.jar unittests.js 
+        !java -jar ../_test/js/js.jar unittests.js 
         silent !rm code_or_practice_copied.js
     endif
 
