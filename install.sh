@@ -14,3 +14,7 @@ sudo bash -c 'echo /usr/local/lib >> /etc/ld.so.conf ' &&  sudo ldconfig
 
 cd ../
 rm -rf gtest-1.4.0
+
+#----------------------------------------------------------------------------
+# for compiling objective c
+sudo apt-get install gobjc

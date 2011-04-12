@@ -4,13 +4,13 @@ if !exists('g:cs_loaded')
 
     " Set the EasyGrep options
     let g:EasyGrepRecursive = 1
-    source $HOME/.vim/plugin/EasyGrep.vim
+    source $HOME/.vim/bundle/vim-easygrep/plugin/EasyGrep.vim
     " Set user-defined files for grepping
     execute "normal \\vojjj\<cr>*.c *.cc *.h\<cr>q"
 
     " Open NERDTree
     NERDTree
-    /stack_cc/
+    /stack_objc/
     normal o
     nohls
 endif
@@ -29,6 +29,9 @@ function! BufferOrEdit(filename)
         elseif match(dir, "_cc$") > 0
             " It's a C++ directory
             let fname = fname . ".cc"
+        elseif match(dir, "_objc$") > 0
+            " It's an objective c directory
+            let fname = fname . ".m"
         elseif match(dir, "_rb$") > 0
             " It's a Ruby directory
             let fname = fname . ".rb"
@@ -91,6 +94,16 @@ function! RunUnitTestsForDir()
         !g++ $(gtest-config --cppflags --cxxflags) -o unittests.o -c unittests.cc
         silent !rm ./unittests
         !g++ $(gtest-config --ldflags --libs) -o unittests ../_test/cc_gtest/gtest_main.o code.o unittests.o
+        !./unittests
+        silent !rm ./unittests
+        silent !rm *.o
+    elseif match(dir, "_objc$") > 0
+        " It's an objective c directory
+        write
+        silent !rm *.o
+        exec "!gcc -c -Wno-import " . sourcecode . ".m"
+        !gcc -c -Wno-import unittests.m
+        exec "!gcc -o unittests -Wno-import " . sourcecode . ".o unittests.o -lobjc"
         !./unittests
         silent !rm ./unittests
         silent !rm *.o
