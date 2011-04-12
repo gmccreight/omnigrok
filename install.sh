@@ -1,10 +1,12 @@
 #!/bin/sh
 #----------------------------------------------------------------------------
 # gtest, which is used for C++ code
-wget http://googletest.googlecode.com/files/gtest-1.4.0.tar.gz
-rm -rf gtest-1.4.0
-tar -xvzf gtest-1.4.0.tar.gz
-cd gtest-1.4.0
+gtestversion=1.5.0
+wget http://googletest.googlecode.com/files/gtest-$gtestversion.tar.gz
+rm -rf gtest-$gtestversion
+tar -xvzf gtest-$gtestversion.tar.gz
+rm gtest-$gtestversion.tar.gz
+cd gtest-$gtestversion
 ./configure
 make
 sudo make install
@@ -13,7 +15,7 @@ sudo make install
 sudo bash -c 'echo /usr/local/lib >> /etc/ld.so.conf ' &&  sudo ldconfig
 
 cd ../
-rm -rf gtest-1.4.0
+rm -rf gtest-$gtestversion
 
 #----------------------------------------------------------------------------
 # for compiling objective c
