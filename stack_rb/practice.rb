@@ -1,3 +1,7 @@
+# This is a practice file.  Delete methods from this file, then rewrite them
+# and run the tests by hitting <c-j>.  That way you don't have to mess with
+# the reference implementation.
+
 class Node
   attr_accessor :nxt, :value
 
