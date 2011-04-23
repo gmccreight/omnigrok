@@ -29,6 +29,9 @@ function! BufferOrEdit(filename)
         elseif match(dir, "_cc$") > 0
             " It's a C++ directory
             let fname = fname . ".cc"
+        elseif match(dir, "_coffee$") > 0
+            " It's an coffeescript directory
+            let fname = fname . ".coffee"
         elseif match(dir, "_objc$") > 0
             " It's an objective c directory
             let fname = fname . ".m"
@@ -97,6 +100,17 @@ function! RunUnitTestsForDir()
         !./unittests
         silent !rm ./unittests
         silent !rm *.o
+    elseif match(dir, "_coffee$") > 0
+        " It's a coffeescript directory
+        " Uses Rhino
+        write
+        exec "!coffee -b -c *.coffee"
+        exec "!cp " . sourcecode . ".js code_or_practice_copied.js"
+        !java -jar ../_test/js/js.jar unittests.js 
+        silent !rm code.js
+        silent !rm practice.js
+        silent !rm code_or_practice_copied.js
+        silent !rm unittests.js
     elseif match(dir, "_objc$") > 0
         " It's an objective c directory
         write

@@ -9,7 +9,7 @@ var EZTEST = {};
         failures = [];
     }
 
-    EZTEST.is = function (expected, actual, message) {
+    EZTEST.isok = function (expected, actual, message) {
         if (expected == actual) {
             assertion_result(1, expected, actual, message);
         }
@@ -41,4 +41,4 @@ var EZTEST = {};
 
 start = EZTEST.start;
 finish = EZTEST.finish;
-is = EZTEST.is;
+isok = EZTEST.isok;
