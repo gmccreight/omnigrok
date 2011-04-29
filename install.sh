@@ -20,3 +20,18 @@ rm -rf gtest-$gtestversion
 #----------------------------------------------------------------------------
 # for compiling objective c
 sudo apt-get install gobjc
+
+#----------------------------------------------------------------------------
+# Install node into the ./local directory
+nodeversion=0.4.7
+wget http://nodejs.org/dist/node-v$nodeversion.tar.gz
+rm -rf node-v$nodeversion
+tar -xvzf node-v$nodeversion.tar.gz
+rm node-v$nodeversion.tar.gz
+cd node-v$nodeversion
+mkdir ../local
+./configure --prefix=../local/node
+make
+make install
+cd ..
+rm -r node-v$nodeversion
