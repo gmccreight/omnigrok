@@ -1,4 +1,5 @@
 #!/bin/sh
+
 #----------------------------------------------------------------------------
 # gtest, which is used for C++ code
 gtestversion=1.5.0
@@ -20,6 +21,11 @@ rm -rf gtest-$gtestversion
 #----------------------------------------------------------------------------
 # for compiling objective c
 sudo apt-get install gobjc
+
+#----------------------------------------------------------------------------
+# Java, which is used for Java, but also by Rhino for the javascript stuff,
+# until we can move things over to node
+sudo apt-get install sun-java6-jdk
 
 #----------------------------------------------------------------------------
 # Install node into the ./local directory
