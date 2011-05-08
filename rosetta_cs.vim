@@ -85,7 +85,7 @@ function! RunUnitTestsForDir()
         !gcc -o unittests.o -c unittests.c
         silent !rm ./unittests
         !gcc -o unittests ../_test/c_check/src/*.o code.o unittests.o
-        !./unittests
+        !./unittests | tee ../tests/tmp_tests_out.txt
         silent !rm ./unittests
         silent !rm *.o
     elseif match(dir, "_cc$") > 0
@@ -106,7 +106,7 @@ function! RunUnitTestsForDir()
         write
         exec "!coffee -b -c *.coffee"
         exec "!cp " . sourcecode . ".js code_or_practice_copied.js"
-        !java -jar ../_test/js/js.jar unittests.js 
+        !java -jar ../_test/js/js.jar unittests.js | tee ../tests/tmp_tests_out.txt
         silent !rm code.js
         silent !rm practice.js
         silent !rm code_or_practice_copied.js
@@ -118,7 +118,7 @@ function! RunUnitTestsForDir()
         exec "!gcc -c -Wno-import " . sourcecode . ".m"
         !gcc -c -Wno-import unittests.m
         exec "!gcc -o unittests -Wno-import " . sourcecode . ".o unittests.o -lobjc"
-        !./unittests
+        !./unittests | tee ../tests/tmp_tests_out.txt
         silent !rm ./unittests
         silent !rm *.o
     elseif match(dir, "_rb$") > 0
@@ -126,14 +126,14 @@ function! RunUnitTestsForDir()
         " Using test unit
         write
         exec "!cp " . sourcecode . ".rb code_or_practice_copied.rb" 
-        !ruby unittests.rb 
+        !ruby unittests.rb | tee ../tests/tmp_tests_out.txt
         silent !rm code_or_practice_copied.rb 
     elseif match(dir, "_js$") > 0
         " It's a Javascript directory
         " Uses Rhino
         write
         exec "!cp " . sourcecode . ".js code_or_practice_copied.js" 
-        !java -jar ../_test/js/js.jar unittests.js 
+        !java -jar ../_test/js/js.jar unittests.js | tee ../tests/tmp_tests_out.txt
         silent !rm code_or_practice_copied.js
     endif
 
