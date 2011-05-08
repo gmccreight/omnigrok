@@ -1,0 +1,1 @@
+call vimtest#Quit()

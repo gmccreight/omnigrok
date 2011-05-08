@@ -1,4 +1,4 @@
-" Don't reload the NERDTree and grep options...
+ Don't reload the NERDTree and grep options...
 if !exists('g:cs_loaded')
     let g:cs_loaded = 1
 
@@ -97,7 +97,7 @@ function! RunUnitTestsForDir()
         !g++ $(gtest-config --cppflags --cxxflags) -o unittests.o -c unittests.cc
         silent !rm ./unittests
         !g++ $(gtest-config --ldflags --libs) -o unittests ../_test/cc_gtest/gtest_main.o code.o unittests.o
-        !./unittests
+        !./unittests | tee ../tests/tmp_tests_out.txt
         silent !rm ./unittests
         silent !rm *.o
     elseif match(dir, "_coffee$") > 0

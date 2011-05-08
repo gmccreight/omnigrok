@@ -2,3 +2,6 @@
 *.o
 *unittests
 local
+tests/tmp_tests_out.txt
+tests/*.msgout
+tests/*.tap

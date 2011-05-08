@@ -1,0 +1,27 @@
+= Testing
+
+== Introduction
+These unit tests are aimed at other developers.
+
+They require runVimTests, a vim plugin available on the vim.org website.
+
+Once runVimTests is installed, in the shell you can:
+ cd git-vim
+ runVimTests tests
+
+It will run all the .vim files in the tests directory and gather the results
+in a test harness, printing a summary.
+
+You can also use the Makefile to run the tests.  To do that, just run:
+ make test
+
+Within vim, you'll need to run:
+ :!make test
+
+The raw 'make test' ex command fails, but when run as a shell command it works.
+
+== Compatibility
+These unit tests were developed on a Linux system.  They require Cygwin to
+run in Windows.  It's not for any fundamental reason, just that they use some
+shell commands to create the directory under git control.  If someone wanted to
+put in the effort, the tests could be made cross platform relatively easily.
