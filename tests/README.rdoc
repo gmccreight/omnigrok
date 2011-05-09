@@ -1,27 +1,15 @@
 = Testing
 
 == Introduction
-These unit tests are aimed at other developers.
+These application tests are aimed at developers who want to introduce their
+solutions into RosettaCode.  By testing the application end-to-end, they help
+ensure that the installer correctly handles all the dependencies.
 
-They require runVimTests, a vim plugin available on the vim.org website.
+The tests require runVimTests 1.16, a vim plugin available on the vim.org website.
 
-Once runVimTests is installed, in the shell you can:
- cd git-vim
+Once runVimTests is installed, in a prompt at the project root:
  runVimTests tests
 
-It will run all the .vim files in the tests directory and gather the results
-in a test harness, printing a summary.
-
-You can also use the Makefile to run the tests.  To do that, just run:
- make test
-
-Within vim, you'll need to run:
- :!make test
-
-The raw 'make test' ex command fails, but when run as a shell command it works.
-
-== Compatibility
-These unit tests were developed on a Linux system.  They require Cygwin to
-run in Windows.  It's not for any fundamental reason, just that they use some
-shell commands to create the directory under git control.  If someone wanted to
-put in the effort, the tests could be made cross platform relatively easily.
+It will run all the .vim files in the tests directory and gather the results in
+a test harness, printing a summary.  The aim should be to have all the tests
+pass at all times.
