@@ -2,16 +2,16 @@ source helpers/setup.vim
 
 call StartTapWithPlan(1)
 
-cd ../
+cd ../../
 
 source rosetta_cs.vim
-edit linked_list_cc/code.cc
+edit linked_list_coffee/code.coffee
 
 silent call RunUnitTestsForDir()
 
-cd tests
+cd tests/integration
 read tmp_tests_out.txt
 
-call vimtap#Like(BufferContent(), 'PASSED', 'Passed all its tests')
+call vimtap#Like(BufferContent(), 'ALL TESTS PASSED', 'Passed all its tests')
 
 source helpers/teardown.vim

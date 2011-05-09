@@ -1,14 +1,14 @@
 = Testing
 
 == Introduction
-These application tests are aimed at developers who want to introduce their
+The integration tests are aimed at developers who want to introduce their
 solutions into RosettaCode.  By testing the application end-to-end, they help
 ensure that the installer correctly handles all the dependencies.
 
 The tests require runVimTests 1.16, a vim plugin available on the vim.org website.
 
 Once runVimTests is installed, in a prompt at the project root:
- runVimTests tests
+ runVimTests tests/integration/
 
 It will run all the .vim files in the tests directory and gather the results in
 a test harness, printing a summary.  The aim should be to have all the tests

@@ -2,16 +2,16 @@ source helpers/setup.vim
 
 call StartTapWithPlan(1)
 
-cd ../
+cd ../../
 
 source rosetta_cs.vim
-edit stack_rb/code.rb
+edit linked_list_js/code.js
 
 silent call RunUnitTestsForDir()
 
-cd tests
+cd tests/integration
 read tmp_tests_out.txt
 
-call vimtap#Like(BufferContent(), '0 failures, 0 errors', 'Passed all its tests')
+call vimtap#Like(BufferContent(), 'ALL TESTS PASSED', 'Passed all its tests')
 
 source helpers/teardown.vim

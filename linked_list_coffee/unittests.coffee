@@ -1,5 +1,5 @@
-load "../_test/js/ENV.js"
-load "../_test/js/EZTEST.js"
+load "../tests/frameworks/js/ENV.js"
+load "../tests/frameworks/js/EZTEST.js"
 load "code_or_practice_copied.js"
 
 start()
