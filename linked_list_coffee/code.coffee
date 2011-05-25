@@ -13,12 +13,17 @@ class LinkedList
   append: (node) ->
     if @head == null
       @head = node
+      @length = 1
     else
       tmp = @head
       while tmp.pointer != null
         tmp = tmp.pointer
       tmp.pointer = node
+      @length += 1
     node
+
+  count_nodes: ->
+    @length
 
   list_values: ->
     values = []

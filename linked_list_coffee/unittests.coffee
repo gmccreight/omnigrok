@@ -16,11 +16,11 @@ isok "default", node_b.value, "node_b's default value should be right"
 
 #Linked lists
 linked_list = new LinkedList
-isok 0, linked_list.list_values().length, "empty linked list has zero length"
+isok 0, linked_list.count_nodes(), "empty linked list has zero length"
 linked_list.append(node_a)
-isok 1, linked_list.list_values().length, "the list has been incremented"
+isok 1, linked_list.count_nodes(), "the list has been incremented"
 linked_list.append(node_b)
-isok 2, linked_list.list_values().length, "the list has been incremented again"
+isok 2, linked_list.count_nodes(), "the list has been incremented again"
 isok "cool node a value", linked_list.list_values()[0], "the node a value is right"
 isok "default", linked_list.list_values()[1], "the node b value is right"
 
