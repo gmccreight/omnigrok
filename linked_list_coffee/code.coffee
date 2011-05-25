@@ -13,23 +13,21 @@ class LinkedList
   append: (node) ->
     if @head == null
       @head = node
-      return node
     else
       tmp = @head
       while tmp.pointer != null
         tmp = tmp.pointer
       tmp.pointer = node
-      node
-
+    node
 
   list_values: ->
-      values = []
-      if @head == null
-        return []
-      else
-        tmp = @head
+    values = []
+    if @head == null
+      return []
+    else
+      tmp = @head
+      values.push tmp.value
+      while tmp.pointer != null
+        tmp = tmp.pointer
         values.push tmp.value
-        while tmp.pointer != null
-          tmp = tmp.pointer
-          values.push tmp.value
-      return values
+    values
