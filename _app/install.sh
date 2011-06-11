@@ -28,14 +28,14 @@ sudo apt-get install gobjc
 sudo apt-get install sun-java6-jdk
 
 #----------------------------------------------------------------------------
-# Install node into the ./local directory
+# Install node into the ./local directory (within the _app) directory
 nodeversion=0.4.7
 wget http://nodejs.org/dist/node-v$nodeversion.tar.gz
 rm -rf node-v$nodeversion
 tar -xvzf node-v$nodeversion.tar.gz
 rm node-v$nodeversion.tar.gz
 cd node-v$nodeversion
-mkdir ../local
+mkdir -p ../local
 ./configure --prefix=../local/node
 make
 make install
