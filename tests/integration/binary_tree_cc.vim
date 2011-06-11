@@ -5,7 +5,7 @@ call StartTapWithPlan(1)
 cd ../../
 
 source rosetta_cs.vim
-edit binary_tree_cc/code.cc
+edit binary_tree/binary_tree_cc/code.cc
 
 silent call RunUnitTestsForDir()
 

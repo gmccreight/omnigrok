@@ -5,7 +5,7 @@ call StartTapWithPlan(1)
 cd ../../
 
 source rosetta_cs.vim
-edit stack_rb/code.rb
+edit stack/stack_rb/code.rb
 
 silent call RunUnitTestsForDir()
 

@@ -5,7 +5,7 @@ call StartTapWithPlan(1)
 cd ../../
 
 source rosetta_cs.vim
-edit linked_list_coffee/code.coffee
+edit linked_list/linked_list_coffee/code.coffee
 
 silent call RunUnitTestsForDir()
 
