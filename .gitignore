@@ -1,8 +1,8 @@
 *.swp
 *.o
 *unittests
-local
-tests/integration/tmp_tests_out.txt
-tests/integration/*.msgout
-tests/integration/*.tap
-local_settings.vim
+_app/local
+_app/tests/integration/tmp_tests_out.txt
+_app/tests/integration/*.msgout
+_app/tests/integration/*.tap
+_app/local_settings.vim

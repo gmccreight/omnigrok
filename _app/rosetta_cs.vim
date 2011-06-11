@@ -67,8 +67,8 @@ function! RunUnitTestsForDir()
         exec "!gcc -o code.o -c " . sourcecode . ".c"
         !gcc -o unittests.o -c unittests.c
         silent !rm ./unittests
-        !gcc -o unittests ../../tests/frameworks/c_check/src/*.o code.o unittests.o
-        !./unittests | tee ../../tests/integration/tmp_tests_out.txt
+        !gcc -o unittests ../../_app/tests/frameworks/c_check/src/*.o code.o unittests.o
+        !./unittests | tee ../../_app/tests/integration/tmp_tests_out.txt
         silent !rm ./unittests
         silent !rm *.o
     elseif match(dir, "_cc$") > 0
@@ -79,8 +79,8 @@ function! RunUnitTestsForDir()
         exec "!g++ -o code.o -c " . sourcecode . ".cc"
         !g++ $(gtest-config --cppflags --cxxflags) -o unittests.o -c unittests.cc
         silent !rm ./unittests
-        !g++ $(gtest-config --ldflags --libs) -o unittests ../../tests/frameworks/cc_gtest/gtest_main.o code.o unittests.o
-        !./unittests | tee ../../tests/integration/tmp_tests_out.txt
+        !g++ $(gtest-config --ldflags --libs) -o unittests ../../_app/tests/frameworks/cc_gtest/gtest_main.o code.o unittests.o
+        !./unittests | tee ../../_app/tests/integration/tmp_tests_out.txt
         silent !rm ./unittests
         silent !rm *.o
     elseif match(dir, "_coffee$") > 0
@@ -89,7 +89,7 @@ function! RunUnitTestsForDir()
         write
         exec "!coffee -b -c *.coffee"
         exec "!cp " . sourcecode . ".js code_or_practice_copied.js"
-        !java -jar ../../tests/frameworks/js/js.jar unittests.js | tee ../../tests/integration/tmp_tests_out.txt
+        !java -jar ../../_app/tests/frameworks/js/js.jar unittests.js | tee ../../_app/tests/integration/tmp_tests_out.txt
         silent !rm code.js
         silent !rm practice.js
         silent !rm code_or_practice_copied.js
@@ -101,7 +101,7 @@ function! RunUnitTestsForDir()
         exec "!gcc -c -Wno-import " . sourcecode . ".m"
         !gcc -c -Wno-import unittests.m
         exec "!gcc -o unittests -Wno-import " . sourcecode . ".o unittests.o -lobjc"
-        !./unittests | tee ../../tests/integration/tmp_tests_out.txt
+        !./unittests | tee ../../_app/tests/integration/tmp_tests_out.txt
         silent !rm ./unittests
         silent !rm *.o
     elseif match(dir, "_rb$") > 0
@@ -109,14 +109,14 @@ function! RunUnitTestsForDir()
         " Using test unit
         write
         exec "!cp " . sourcecode . ".rb code_or_practice_copied.rb" 
-        !ruby unittests.rb | tee ../../tests/integration/tmp_tests_out.txt
+        !ruby unittests.rb | tee ../../_app/tests/integration/tmp_tests_out.txt
         silent !rm code_or_practice_copied.rb 
     elseif match(dir, "_js$") > 0
         " It's a Javascript directory
         " Uses Rhino
         write
         exec "!cp " . sourcecode . ".js code_or_practice_copied.js" 
-        !java -jar ../../tests/frameworks/js/js.jar unittests.js | tee ../../tests/integration/tmp_tests_out.txt
+        !java -jar ../../_app/tests/frameworks/js/js.jar unittests.js | tee ../../_app/tests/integration/tmp_tests_out.txt
         silent !rm code_or_practice_copied.js
     endif
 
