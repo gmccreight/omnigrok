@@ -2,6 +2,7 @@
 *.o
 *unittests
 local
-tests/tmp_tests_out.txt
-tests/*.msgout
-tests/*.tap
+tests/integration/tmp_tests_out.txt
+tests/integration/*.msgout
+tests/integration/*.tap
+local_settings.vim

@@ -1,20 +1,3 @@
- Don't reload the NERDTree and grep options...
-if !exists('g:cs_loaded')
-    let g:cs_loaded = 1
-
-    " Set the EasyGrep options
-    let g:EasyGrepRecursive = 1
-    source $HOME/.vim/bundle/vim-easygrep/plugin/EasyGrep.vim
-    " Set user-defined files for grepping
-    execute "normal \\vojjj\<cr>*.c *.cc *.h\<cr>q"
-
-    " Open NERDTree
-    NERDTree
-    /stack_objc/
-    normal o
-    nohls
-endif
-
 " Switch to the buffer if it is open, otherwise 'edit' the file
 function! BufferOrEdit(filename)
     let fname = a:filename

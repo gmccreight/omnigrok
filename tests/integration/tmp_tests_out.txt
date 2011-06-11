@@ -1,6 +1,0 @@
-Loaded suite unittests
-Started
-.
-Finished in 0.00035 seconds.
-
-1 tests, 9 assertions, 0 failures, 0 errors
