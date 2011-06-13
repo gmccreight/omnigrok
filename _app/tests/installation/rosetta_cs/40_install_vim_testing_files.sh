@@ -1,7 +1,10 @@
 #All the vim test stuff
-sudo cp -a _app/tests/integration/files_to_copy_to_usr_local_bin/* /usr/local/bin
+sudo cp -a ~/rcs/_app/tests/integration/files_to_copy_to_usr_local_bin/* /usr/local/bin
 
 mkdir ~/.vim
+
+#unzip needs to be installed... ensure it is.
+sudo apt-get install unzip -y
 
 #Install runVimTests
 wget -O ~/.vim/runvimtests.zip http://www.vim.org/scripts/download_script.php?src_id=15135

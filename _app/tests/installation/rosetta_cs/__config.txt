@@ -11,9 +11,9 @@
 PROVISIONING_USER="ubuntu"
 USER_NAME="ubuntu"
 USER_PASS="ubuntu"
-URI="192.168.168.115"
+URI="10.15.1.184"
 SSH_PORT="22"
 
 ##### Used by the Virtualbox script #####
 VB_VM_NAME="Ubuntu 11.04 Server"
-VB_SNAPSHOT_NAME="SSH and NOPASSWD in sudoers"
+VB_SNAPSHOT_NAME="about to dhclient"
