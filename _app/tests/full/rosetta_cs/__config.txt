@@ -1,0 +1,19 @@
+# rosetta_cs is tested on a base Ubuntu 11.04 with the following small modifications
+#   openssh-server installed
+# added the following line to the *bottom* of the /etc/sudoers file using visudo to allow it to do sudo commands without needing to supply the password.
+#   ubuntu ALL=(ALL) NOPASSWD: ALL
+# (Note, in virtualbox, used bridged networking)
+
+# These variables are used in the various scripts that need them by using the
+# load_var function.  They may be overridden by command-line options given to
+# the provisionator.
+
+PROVISIONING_USER="ubuntu"
+USER_NAME="ubuntu"
+USER_PASS="ubuntu"
+URI="192.168.168.115"
+SSH_PORT="22"
+
+##### Used by the Virtualbox script #####
+VB_VM_NAME="Ubuntu 11.04 Server"
+VB_SNAPSHOT_NAME="SSH and NOPASSWD in sudoers"
