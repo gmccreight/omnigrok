@@ -96,3 +96,16 @@ rm -rf npm
 # Coffeescript
 
 sudo npm install -g coffee-script
+
+#----------------------------------------------------------------------------
+# [id:scala]
+# [prereqs:java]
+# Scala
+
+rm -rf local/scala
+wget -O local/scala.tgz http://www.scala-lang.org/downloads/distrib/files/scala-2.9.0.1.tgz
+cd local
+tar -xvzf scala.tgz
+rm scala.tgz
+mv scala-* scala
+cd ..

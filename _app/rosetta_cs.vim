@@ -24,6 +24,9 @@ function! BufferOrEdit(filename)
         elseif match(dir, "_js$") > 0
             " It's a Javascript directory
             let fname = fname . ".js"
+        elseif match(dir, "_scala$") > 0
+            " It's a Scala directory
+            let fname = fname . ".scala"
         endif
     endif
 
@@ -118,6 +121,13 @@ function! RunUnitTestsForDir()
         exec "!cp " . sourcecode . ".js code_or_practice_copied.js" 
         !java -jar ../../_app/tests/frameworks/js/js.jar unittests.js | tee ../../_app/tests/integration/tmp_tests_out.txt
         silent !rm code_or_practice_copied.js
+    elseif match(dir, "_scala$") > 0
+        " It's a Scala directory
+        write
+        silent !rm ./unittests*.class
+        exec "!PATH=$PATH:" . cwd . "/_app/local/scala/bin; scalac -cp ../../_app/tests/frameworks/scalatest/scalatest-1.6.1.jar unittests.scala"
+        exec "!PATH=$PATH:" . cwd . "/_app/local/scala/bin; scala -cp ../../_app/tests/frameworks/scalatest/scalatest-1.6.1.jar org.scalatest.tools.Runner -p . -o -s unittests"
+        silent !rm ./unittests*.class
     endif
 
     execute "cd " . cwd
