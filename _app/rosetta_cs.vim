@@ -125,8 +125,8 @@ function! RunUnitTestsForDir()
         " It's a Scala directory
         write
         silent !rm ./unittests*.class
-        exec "!PATH=$PATH:" . cwd . "/_app/local/scala/bin; scalac -cp ../../_app/tests/frameworks/scalatest/scalatest-1.6.1.jar unittests.scala"
-        exec "!PATH=$PATH:" . cwd . "/_app/local/scala/bin; scala -cp ../../_app/tests/frameworks/scalatest/scalatest-1.6.1.jar org.scalatest.tools.Runner -p . -o -s unittests"
+        exec "!PATH=$PATH:" . cwd . "/_app/local/scala/bin; scalac -cp ../../_app/tests/frameworks/scalatest/scalatest-1.6.1.jar code.scala unittests.scala"
+        exec "!PATH=$PATH:" . cwd . "/_app/local/scala/bin; scala -cp ../../_app/tests/frameworks/scalatest/scalatest-1.6.1.jar org.scalatest.tools.Runner -p . -o -s code unittests"
         silent !rm ./unittests*.class
     endif
 
