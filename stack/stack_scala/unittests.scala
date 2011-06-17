@@ -1,5 +1,6 @@
 import org.scalatest.FlatSpec
 import org.scalatest.matchers.ShouldMatchers
+import code.EmptyStack
 
 class unittests extends FlatSpec with ShouldMatchers {
 
@@ -9,7 +10,6 @@ class unittests extends FlatSpec with ShouldMatchers {
     stack.push(2)
     stack.pop() should equal (2)
     stack.pop() should equal (1)
-    //1 should equal (1)
   }
 
   it should "throw NoSuchElementException if an empty stack is popped" in {

@@ -124,10 +124,12 @@ function! RunUnitTestsForDir()
     elseif match(dir, "_scala$") > 0
         " It's a Scala directory
         write
-        silent !rm ./unittests*.class
+        silent !rm -rf code
+        silent !rm ./*.class
         exec "!PATH=$PATH:" . cwd . "/_app/local/scala/bin; scalac -cp ../../_app/tests/frameworks/scalatest/scalatest-1.6.1.jar code.scala unittests.scala"
-        exec "!PATH=$PATH:" . cwd . "/_app/local/scala/bin; scala -cp ../../_app/tests/frameworks/scalatest/scalatest-1.6.1.jar org.scalatest.tools.Runner -p . -o -s code unittests"
-        silent !rm ./unittests*.class
+        exec "!PATH=$PATH:" . cwd . "/_app/local/scala/bin; scala -cp ../../_app/tests/frameworks/scalatest/scalatest-1.6.1.jar org.scalatest.tools.Runner -p . -o -s unittests"
+        silent !rm ./*.class
+        silent !rm -rf code
     endif
 
     execute "cd " . cwd
