@@ -4,4 +4,4 @@ source __shared/library.sh
 load_var PROVISIONING_USER
 load_var URI
 
-scp -r ../../../../../rosetta_cs $PROVISIONING_USER@$URI:~/rcs
+rsync -av --delete ../../../../../rosetta_cs/ $PROVISIONING_USER@$URI:~/rosetta_cs_temp_testing_dir/
