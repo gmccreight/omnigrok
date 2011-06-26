@@ -72,8 +72,6 @@ def info_for_type(type)
     h[:commands] << "gcc -o unittests.o -c unittests.c"
     h[:commands] << "gcc -o unittests ../../_app/tests/frameworks/c_check/src/*.o code.o unittests.o"
     h[:commands] << "./unittests"
-    h[:commands] << "rm ./unittests"
-    h[:commands] << "rm *.o"
 
     h[:passing_regex_str] = "^100%"
   elsif type == "cc"
@@ -152,7 +150,7 @@ end
 def cleanup
   $commands << "rm -f *.o"
   $commands << "rm -f *.class"
-  $commands << "rm -f *.unittests"
+  $commands << "rm -f unittests"
   $commands << "rm -rf code"
   $commands << "rm -f code_or_practice_copied.*"
 end
