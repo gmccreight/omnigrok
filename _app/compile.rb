@@ -36,7 +36,7 @@ def main
         puts "ALL TESTS PASSED"
       else
         puts $results
-        puts "TESTS DID NOT ALL PASS"
+        puts "TESTS DID NOT ALL PASS FOR DIR #{dir}"
       end
     end
   else
@@ -63,8 +63,6 @@ def info_for_type(type)
     sourcecode = "code." + suffix
   end
 
-  tee_results = "| tee ../../_app/tests/integration/tmp_tests_out.txt"
-
   h = {:commands => [], :passing_regex_str => nil}
 
   if type == "c"
@@ -73,7 +71,7 @@ def info_for_type(type)
     h[:commands] << "gcc -o code.o -c #{sourcecode}"
     h[:commands] << "gcc -o unittests.o -c unittests.c"
     h[:commands] << "gcc -o unittests ../../_app/tests/frameworks/c_check/src/*.o code.o unittests.o"
-    h[:commands] << "./unittests #{tee_results}"
+    h[:commands] << "./unittests"
     h[:commands] << "rm ./unittests"
     h[:commands] << "rm *.o"
 
@@ -84,7 +82,7 @@ def info_for_type(type)
     h[:commands] << "g++ -o code.o -c #{sourcecode}"
     h[:commands] << "g++ $(gtest-config --cppflags --cxxflags) -o unittests.o -c unittests.cc"
     h[:commands] << "g++ $(gtest-config --ldflags --libs) -o unittests ../../_app/tests/frameworks/cc_gtest/gtest_main.o code.o unittests.o"
-    h[:commands] << "./unittests #{tee_results}"
+    h[:commands] << "./unittests"
 
     h[:passing_regex_str] = "PASSED"
   elsif type == "coffee"
@@ -97,7 +95,7 @@ def info_for_type(type)
     else
       h[:commands] << "cp code.js code_or_practice_copied.js"
     end
-    h[:commands] << "java -jar ../../_app/tests/frameworks/js/js.jar unittests.js #{tee_results}"
+    h[:commands] << "java -jar ../../_app/tests/frameworks/js/js.jar unittests.js"
     h[:commands] << "rm code.js practice.js unittests.js" #special case for coffeescript
 
     h[:passing_regex_str] = "ALL TESTS PASSED"
@@ -105,7 +103,7 @@ def info_for_type(type)
     # It's a Javascript directory
     # Uses Rhino
     h[:commands] << "cp #{sourcecode} code_or_practice_copied.js"
-    h[:commands] << "java -jar ../../_app/tests/frameworks/js/js.jar unittests.js | tee ../../_app/tests/integration/tmp_tests_out.txt"
+    h[:commands] << "java -jar ../../_app/tests/frameworks/js/js.jar unittests.js"
 
     h[:passing_regex_str] = "ALL TESTS PASSED"
   elsif type == "objc"
@@ -113,19 +111,19 @@ def info_for_type(type)
     h[:commands] << "gcc -c -Wno-import #{sourcecode}"
     h[:commands] << "gcc -c -Wno-import unittests.m"
     h[:commands] << "gcc -o unittests -Wno-import #{sourcecode} unittests.o -lobjc"
-    h[:commands] << "./unittests #{tee_results}"
+    h[:commands] << "./unittests"
 
     h[:passing_regex_str] = "TODO - We don't have a unit test framework yet"
   elsif type == "rb"
     # It's a ruby directory
     # Using test unit
     h[:commands] << "cp #{sourcecode} code_or_practice_copied.rb"
-    h[:commands] << "ruby unittests.rb #{tee_results}"
+    h[:commands] << "ruby unittests.rb"
   elsif type == "scala"
     # It's a Scala directory
     shared = "PATH=$PATH:#{Dir.getwd}/_app/local/scala/bin;"
     h[:commands] << "#{shared} scalac -cp ../../_app/tests/frameworks/scalatest/scalatest-1.6.1.jar code.scala unittests.scala"
-    h[:commands] << "#{shared} scala -cp ../../_app/tests/frameworks/scalatest/scalatest-1.6.1.jar org.scalatest.tools.Runner -p . -o -s unittests #{tee_results}"
+    h[:commands] << "#{shared} scala -cp ../../_app/tests/frameworks/scalatest/scalatest-1.6.1.jar org.scalatest.tools.Runner -p . -o -s unittests"
 
     h[:passing_regex_str] = "All tests passed"
   end
