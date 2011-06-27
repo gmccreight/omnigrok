@@ -21,8 +21,16 @@ standard_usage="
 #   __config.txt
 #       Required. Does not get run directly... contains readme-style info and
 #       shared config info that the other steps can use.  It is used in
-#       combination with the overrides to create a __generated_config.txt file
+#       combination with the overrides to create a __config_generated.txt file
 #       that has options specified on the command line as at higher precedence.
+#   __config_local.txt
+#       Optional. Does not get run directly... contains readme-style info and
+#       shared config info that the other steps can use.  It has higher
+#       precedence than the __confi.txt file.  It is used in combination with
+#       __config.txt file and the overrides to create a __config_generated.txt
+#       file that has options specified on the command line as at higher
+#       precedence.  It is seperated from __config.txt in case you want to have
+#       some options that you do not want to have in version control.
 #   __shared
 #       Not required, but can be very helpful.  Any files placed in this folder
 #       will be available both locally and remotely.  For example, you could
@@ -89,20 +97,23 @@ steps=$(eval $(eval "echo $steps | sed 's/,/ /g' | sed 's/\([^ ]\+\)/echo \1;/g'
 #   SSH_PORT="30101"
 #   VB_SNAPSHOT_NAME="my snapshot"
 #
-# Then, append them to the __generated_config.txt file so they will override
+# Then, append them to the __config_generated.txt file so they will override
 # pre-existing configuration options.
 
 cd $provisioning_folder
 
-cp -a __config.txt __generated_config.txt
-echo "\n\n### OVERRIDES ###\n\n" >> __generated_config.txt
+cp -a __config.txt __config_generated.txt
+if [ -f __config_local.txt ]; then
+ cat __config_local.txt >> __config_generated.txt
+fi
+echo "\n\n### OVERRIDES ###\n\n" >> __config_generated.txt
 
 overrides=$(eval "echo $overrides | sed 's/=/=\"/g' | sed 's/$/\"/' | sed 's/,/\"\\\n/g'")
-echo $overrides >> __generated_config.txt
+echo $overrides >> __config_generated.txt
 
-eval `grep "^PROVISIONING_USER=" __generated_config.txt`
-eval `grep "^SSH_PORT="          __generated_config.txt`
-eval `grep "^URI="               __generated_config.txt`
+eval `grep "^PROVISIONING_USER=" __config_generated.txt`
+eval `grep "^SSH_PORT="          __config_generated.txt`
+eval `grep "^URI="               __config_generated.txt`
 
 cp_to_remote() {
     scp -r -P $SSH_PORT $1 $PROVISIONING_USER@$URI:~/$provisioning_folder
@@ -122,7 +133,7 @@ for i in $steps; do
             # Create the provisioning folder in the provisioning user's home directory and copy the
             # configuration file there so that the rest of the scripts can use it.
             do_on_remote "mkdir $provisioning_folder 2>/dev/null"
-            cp_to_remote ./__generated_config.txt
+            cp_to_remote ./__config_generated.txt
 
             #Recursively copy the __shared folder to the remove location
             if [ `ls ./__shared 2>/dev/null | wc -l` -gt 0 ]; then
