@@ -104,6 +104,18 @@ def info_for_type(type)
     h[:commands] << "java -jar ../../_app/tests/frameworks/js/js.jar unittests.js"
 
     h[:passing_regex_str] = "ALL TESTS PASSED"
+  elsif type == "go"
+    # It's a go directory
+    shared = "PATH=$PATH:#{Dir.getwd}/_app/local/go/bin"
+
+    h[:commands] << "#{shared} gotest"
+    h[:commands] << "rm -r _test"
+    h[:commands] << "rm *.out"
+    h[:commands] << "rm _gotest_.*"
+    h[:commands] << "rm _testmain.*"
+    h[:commands] << "rm _xtest_.*"
+
+    h[:passing_regex_str] = "^PASS$"
   elsif type == "objc"
     # It's an objective c directory
     h[:commands] << "gcc -c -Wno-import #{sourcecode}"
