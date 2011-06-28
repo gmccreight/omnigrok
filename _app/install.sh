@@ -120,7 +120,7 @@ if [ $(should_install npm) -eq 1 ]; then
   cd npm
   sudo make install
   cd ..
-  rm -rf npm
+  sudo rm -rf npm
 fi
 
 #----------------------------------------------------------------------------
