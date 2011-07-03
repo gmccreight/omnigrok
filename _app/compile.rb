@@ -37,6 +37,7 @@ def main
       else
         puts $results
         puts "TESTS DID NOT ALL PASS FOR DIR #{dir}"
+        puts %Q{using #{h[:passing_regex_str]} as the matching regular expression}
       end
     end
   else
@@ -129,6 +130,8 @@ def info_for_type(type)
     # Using pyunit
     h[:commands] << "cp #{sourcecode} code_or_practice_copied.py"
     h[:commands] << "python unittests.py"
+
+    h[:passing_regex_str] = "^OK$"
   elsif type == "rb"
     # It's a ruby directory
     # Using test unit
@@ -177,7 +180,8 @@ def _run_commands
     if $is_dry_run
       puts c
     else
-      $results << `#{c}`
+      #Some things put their results as STDERR, like pyunit, so we need to redirect it to the results.
+      $results << `#{c} 2>&1`
     end
   end
 end
