@@ -82,6 +82,14 @@ apt_get_install gobjc
 apt_get_install ruby
 
 #----------------------------------------------------------------------------
+# [id:pyunit]
+# [prereqs:]
+# [requiredby:]
+# Pyunit
+
+apt_get_install python-unit
+
+#----------------------------------------------------------------------------
 # [id:java]
 # [prereqs:]
 # [requiredby:js]
