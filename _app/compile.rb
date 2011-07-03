@@ -124,6 +124,11 @@ def info_for_type(type)
     h[:commands] << "./unittests"
 
     h[:passing_regex_str] = "TODO - We don't have a unit test framework yet"
+  elsif type == "py"
+    # It's a python directory
+    # Using pyunit
+    h[:commands] << "cp #{sourcecode} code_or_practice_copied.py"
+    h[:commands] << "python unittests.py"
   elsif type == "rb"
     # It's a ruby directory
     # Using test unit
