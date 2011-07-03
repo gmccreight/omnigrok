@@ -13,9 +13,20 @@ class linked_list:
         new_node.next = self.cur_node # link the new node to the 'previous' node.
         self.cur_node = new_node #  set the current node to the new one.
 
-    def list_print(self):
+    def get_nth_node(self, nth):
         node = self.cur_node
+        counter = 0
         while node:
-            print node.data
+            if counter == nth:
+                return node
+            counter += 1
             node = node.next
+        return None
 
+    def length(self):
+        node = self.cur_node
+        length = 0
+        while node:
+            length += 1
+            node = node.next
+        return length
