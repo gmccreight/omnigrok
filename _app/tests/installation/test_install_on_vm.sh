@@ -12,9 +12,9 @@ if [ `echo $mode | egrep "^all$" | wc -l`  -eq 1 ] ; then
 fi
 
 if [ `echo $mode | egrep "^run_copy_install_and_test$" | wc -l`  -eq 1 ] ; then
-  ./provisionator.sh rosetta_cs 11,30-50
+  ./provisionator.sh rosetta_cs 11,20-50
 fi
 
 if [ `echo $mode | egrep "^copy_install_and_test$" | wc -l`  -eq 1 ] ; then
-  ./provisionator.sh rosetta_cs 30-50
+  ./provisionator.sh rosetta_cs 20-50
 fi
