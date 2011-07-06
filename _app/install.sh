@@ -35,6 +35,13 @@ apt_get_install () {
 apt_get_install build-essential
 
 #----------------------------------------------------------------------------
+# [id:unzip]
+# [prereqs:]
+# [requiredby:clojure]
+
+apt_get_install unzip
+
+#----------------------------------------------------------------------------
 # [id:git]
 # [prereqs:buildessential]
 # [requiredby:npm]
@@ -92,7 +99,7 @@ apt_get_install python-unit
 #----------------------------------------------------------------------------
 # [id:java]
 # [prereqs:]
-# [requiredby:js]
+# [requiredby:clojure,js,scala]
 # Java, which is used for Java, but also by Rhino for the javascript stuff,
 # until we can move things over to node.
 
@@ -188,8 +195,22 @@ fi
 # Go
 
 if [ ! -d local/go ] || [ $force_install -eq 1 ]; then
-  echo installing go
-  #hg clone -u release https://go.googlecode.com/hg/ local/go
-  #cd local/go/src
-  #./all.bash
+  hg clone -u release https://go.googlecode.com/hg/ local/go
+  cd local/go/src
+  ./all.bash
+fi
+
+#----------------------------------------------------------------------------
+# [id:clojure]
+# [prereqs:unzip,java]
+# [requiredby:]
+# Clojure
+
+if [ ! -d local/clojure ] || [ $force_install -eq 1 ]; then
+  cd local
+  wget -O clojure.zip https://github.com/downloads/clojure/clojure/clojure-1.2.1.zip
+  unzip clojure.zip
+  rm clojure.zip
+  mv clojure-* clojure
+  cd ..
 fi

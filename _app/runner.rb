@@ -84,6 +84,11 @@ def info_for_type(type)
     h[:commands] << "./unittests"
 
     h[:passing_regex_str] = "PASSED"
+  elsif type == "clojure"
+    # It's a clojure directory
+    h[:commands] << "java -cp ../../_app/local/clojure/clojure.jar clojure.main unittests.clj"
+
+    h[:passing_regex_str] = "^0 failures"
   elsif type == "coffee"
     # It's a coffeescript directory
     # Uses Rhino
