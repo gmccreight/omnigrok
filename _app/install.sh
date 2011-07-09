@@ -214,3 +214,12 @@ if [ ! -d local/clojure ] || [ $force_install -eq 1 ]; then
   mv clojure-* clojure
   cd ..
 fi
+
+#----------------------------------------------------------------------------
+# [id:haskell]
+# [prereqs:]
+# [requiredby:]
+# Haskell
+
+apt_get_install ghc6
+apt_get_install libghc6-mtl-dev
