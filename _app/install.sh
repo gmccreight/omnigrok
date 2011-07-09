@@ -55,12 +55,9 @@ apt_get_install git-core
 # gtest, which is used for C++ code
 
 if [ $(should_install gtest-config) -eq 1 ]; then
-  gtestversion=1.5.0
-  wget http://googletest.googlecode.com/files/gtest-$gtestversion.tar.gz
-  rm -rf gtest-$gtestversion
-  tar -xvzf gtest-$gtestversion.tar.gz
-  rm gtest-$gtestversion.tar.gz
-  cd gtest-$gtestversion
+  wget -O gtest.tgz http://googletest.googlecode.com/files/gtest-1.5.0.tar.gz
+  tar -xvzf gtest.tgz
+  cd gtest-*
   ./configure
   make
   sudo make install
@@ -69,7 +66,7 @@ if [ $(should_install gtest-config) -eq 1 ]; then
   sudo bash -c 'echo /usr/local/lib >> /etc/ld.so.conf ' &&  sudo ldconfig
 
   cd ../
-  rm -rf gtest-$gtestversion
+  rm -rf gtest*
 fi
 
 #----------------------------------------------------------------------------
