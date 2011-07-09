@@ -223,3 +223,4 @@ fi
 
 apt_get_install ghc6
 apt_get_install libghc6-mtl-dev
+apt_get_install libghc6-quickcheck2-dev
