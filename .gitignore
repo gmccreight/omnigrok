@@ -1,10 +1,11 @@
 *.swp
-*.o
 *unittests
+
 _app/local
-_app/tests/integration/tmp_tests_out.txt
-_app/tests/integration/*.msgout
-_app/tests/integration/*.tap
+
 _app/local_settings.vim
 *__config_local.txt
 *__config_generated.txt
+
+*.o
+!_app/tests/cc_gtest/*.o
