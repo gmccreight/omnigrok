@@ -122,6 +122,13 @@ def info_for_type(type)
     h[:commands] << "rm _xtest_.*"
 
     h[:passing_regex_str] = "^PASS$"
+  elsif type == "haskell"
+    # It's a haskell directory
+    h[:commands] << "ghc -o unittests unittests.hs"
+    h[:commands] << "./unittests"
+    h[:commands] << "rm unittests.hi"
+
+    h[:passing_regex_str] = "TODO... fill in passing regex"
   elsif type == "objc"
     # It's an objective c directory
     h[:commands] << "gcc -c -Wno-import #{sourcecode}"
