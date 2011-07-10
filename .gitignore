@@ -8,4 +8,4 @@ _app/local_settings.vim
 *__config_generated.txt
 
 *.o
-!_app/tests/cc_gtest/*.o
+!_app/tests/frameworks/cc_gtest/*.o
