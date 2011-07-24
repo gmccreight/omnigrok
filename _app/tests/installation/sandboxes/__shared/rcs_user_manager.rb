@@ -80,11 +80,14 @@ def create_all_users
     #[tag:question:gem]
     #Does this really have to be multiple steps?
     `mkdir /home/#{user[:login]}/.ssh`
-    `chown #{user[:login]}:#{user[:login]} /home/#{user[:login]}/.ssh`
-
     `cp /usr/share/ajaxterm/rcs_id_rsa.pub /home/#{user[:login]}/.ssh/authorized_keys`
-    `chown #{user[:login]}:#{user[:login]} /home/#{user[:login]}/.ssh/authorized_keys`
     `chmod 600 /home/#{user[:login]}/.ssh/authorized_keys`
+
+    #Copy the main files
+    `cp -a /home/ubuntu/rcs /home/#{user[:login]}`
+
+    #Set the ownership of all the files
+    `chown -R #{user[:login]}:#{user[:login]} /home/#{user[:login]}`
   end
 end
 
