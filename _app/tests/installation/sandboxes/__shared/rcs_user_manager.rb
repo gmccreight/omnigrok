@@ -13,10 +13,9 @@ def code_of_length(x)
 end
 
 def initial_setup
-  (1..10000).each do
+  (1..10).each do
     user = {}
-    user[:login] = code_of_length(8)
-    user[:password] = code_of_length(8)
+    user[:login] = code_of_length(10)
     user[:used] = :not_used
     @@users << user
   end
@@ -32,14 +31,14 @@ end
 
 def put_all_users
   @@users.each do |user|
-    puts user[:login] + " " + user[:password] + " " + user[:used].to_s
+    puts user[:login] + " " + user[:used].to_s
   end
 end
 
 def put_next_user
   user = get_next_user()
   if user
-    puts user[:login] + " " + user[:password]
+    puts user[:login]
   end
 end
 
@@ -60,6 +59,7 @@ def dump_users
   File.open(@@users_filename,'w') do|file|
    Marshal.dump(@@users, file)
   end
+  `chown ajaxterm #{@@users_filename}`
 end
 
 def load_users
@@ -72,7 +72,25 @@ def load_users
             end
 end
 
+def create_all_users
+  @@users.each do |user|
+    `useradd -d /home/#{user[:login]} -m #{user[:login]}`
+
+    #Make it so that ajaxterm can login as the users using SSH keys
+    #[tag:question:gem]
+    #Does this really have to be multiple steps?
+    `mkdir /home/#{user[:login]}/.ssh`
+    `chown #{user[:login]}:#{user[:login]} /home/#{user[:login]}/.ssh`
+
+    `cp /usr/share/ajaxterm/rcs_id_rsa.pub /home/#{user[:login]}/.ssh/authorized_keys`
+    `chown #{user[:login]}:#{user[:login]} /home/#{user[:login]}/.ssh/authorized_keys`
+    `chmod 600 /home/#{user[:login]}/.ssh/authorized_keys`
+  end
+end
+
 setup()
-put_next_user()
-#puts ""
-#put_all_users()
+if ARGV[0] == "next_user"
+  put_next_user()
+elsif ARGV[0] == "create_all_users"
+  create_all_users()
+end

@@ -14,7 +14,7 @@ sed -i '/__init__.*width/{n;s/^/\t\twidth = 160\n\t\theight = 40\n/}' /usr/share
 
 #----------------------------------------------------------------------------------
 # Make ajaxterm use the results of an executed script to set the login
-sed -i '/sys\.stdout\.write.*login/{s/^/#/;n;s/^/#/;n;s/^/\t\t\t\tlogin=os.popen(".\/rcs_user_manager.rb").read().strip()\n/}' /usr/share/ajaxterm/ajaxterm.py
+sed -i '/sys\.stdout\.write.*login/{s/^/#/;n;s/^/#/;n;s/^/\t\t\t\tlogin=os.popen(".\/rcs_user_manager.rb next_user").read().strip()\n/}' /usr/share/ajaxterm/ajaxterm.py
 
 /etc/init.d/ajaxterm restart
 
@@ -23,7 +23,7 @@ sed -i '/sys\.stdout\.write.*login/{s/^/#/;n;s/^/#/;n;s/^/\t\t\t\tlogin=os.popen
 
 #----------------------------------------------------------------------------------
 # Make ajaxterm use a special identity file
-sed -i '/PreferredAuthentications/{s/^/#/;n;s/^/\t\t\t\t\tcmd+=["-i\/usr\/share\/ajaxterm\/ajaxterm_id_rsa"]\n/}' /usr/share/ajaxterm/ajaxterm.py
+sed -i '/PreferredAuthentications/{s/^/#/;n;s/^/\t\t\t\t\tcmd+=["-i\/usr\/share\/ajaxterm\/rcs_id_rsa"]\n/}' /usr/share/ajaxterm/ajaxterm.py
 
 /etc/init.d/ajaxterm restart
 
