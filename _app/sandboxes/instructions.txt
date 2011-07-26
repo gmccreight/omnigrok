@@ -1,0 +1,10 @@
+Quick Start:
+Hit <ctrl-j> once you've selected a file to run the unit tests for that file.
+
+More Detailed Instructions:
+Move to the category you'd like (you are using the vim editor, so j moves down and k moves up).
+Hit <enter> to open the category that is currently selected.
+Move to a source file or a unittest file and hit <enter>.
+Once the code has loaded, hold the control key down and hit j.  The unit tests will run.
+
+To return to the navigation, hit <esc>, then type :wincmd w <enter>.

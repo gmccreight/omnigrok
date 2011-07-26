@@ -13,7 +13,7 @@ def code_of_length(x)
 end
 
 def initial_setup
-  (1..5).each do
+  (1..10).each do
     user = {}
     user[:login] = code_of_length(10)
     user[:used] = :not_used
@@ -79,7 +79,7 @@ def create_all_users
     #Launch rcs immediately on login
     `echo "" >> /home/#{user[:login]}/.bashrc`
     `echo "### launch rcs immediately on login ###" >> /home/#{user[:login]}/.bashrc`
-    `echo "cd rcs; vim -c \\"source _app/rosetta_cs.vim\\" -c \\"NERDTree\\"" >> /home/#{user[:login]}/.bashrc`
+    `echo "cd rcs; vim -c \\"source _app/sandboxes/sandboxes.vim\\"" >> /home/#{user[:login]}/.bashrc`
 
     #Make it so that ajaxterm can login as the users using SSH keys [tag:user_login:gem]
     `mkdir /home/#{user[:login]}/.ssh`
@@ -94,6 +94,9 @@ def create_all_users
 
     #Set the ownership of all the files
     `chown -R #{user[:login]}:#{user[:login]} /home/#{user[:login]}`
+
+    #Link the local directory (but continue to have it be owned by ubuntu)
+    `ln -s /home/ubuntu/rcs_app_local_to_link_to /home/#{user[:login]}/rcs/_app/local`
   end
 end
 
