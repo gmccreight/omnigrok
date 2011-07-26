@@ -13,7 +13,7 @@ def code_of_length(x)
 end
 
 def initial_setup
-  (1..10).each do
+  (1..5).each do
     user = {}
     user[:login] = code_of_length(10)
     user[:used] = :not_used
@@ -74,17 +74,23 @@ end
 
 def create_all_users
   @@users.each do |user|
-    `useradd -d /home/#{user[:login]} -m #{user[:login]}`
+    `useradd -d /home/#{user[:login]} -m #{user[:login]} -s /bin/bash`
 
-    #Make it so that ajaxterm can login as the users using SSH keys
-    #[tag:question:gem]
-    #Does this really have to be multiple steps?
+    #Launch rcs immediately on login
+    `echo "" >> /home/#{user[:login]}/.bashrc`
+    `echo "### launch rcs immediately on login ###" >> /home/#{user[:login]}/.bashrc`
+    `echo "cd rcs; vim -c \\"source _app/rosetta_cs.vim\\" -c \\"NERDTree\\"" >> /home/#{user[:login]}/.bashrc`
+
+    #Make it so that ajaxterm can login as the users using SSH keys [tag:user_login:gem]
     `mkdir /home/#{user[:login]}/.ssh`
     `cp /usr/share/ajaxterm/rcs_id_rsa.pub /home/#{user[:login]}/.ssh/authorized_keys`
     `chmod 600 /home/#{user[:login]}/.ssh/authorized_keys`
 
     #Copy the main files
     `cp -a /home/ubuntu/rcs /home/#{user[:login]}`
+
+    #Copy the .vim files (so you can get NERDTree)
+    `cp -a /home/ubuntu/.vim /home/#{user[:login]}`
 
     #Set the ownership of all the files
     `chown -R #{user[:login]}:#{user[:login]} /home/#{user[:login]}`
