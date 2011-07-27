@@ -4,4 +4,4 @@ source __shared/library.sh
 load_var PROVISIONING_USER
 load_var URI
 
-rsync -av --exclude "_app/local/*" --delete ../../../../../omnigrok/ $PROVISIONING_USER@$URI:~/omnigrok_temp_testing_dir/
+rsync -av --exclude "_app/local/*" --delete ../../../../../omnigrok/ $PROVISIONING_USER@$URI:~/omnigrok/

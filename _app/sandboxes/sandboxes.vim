@@ -1,4 +1,4 @@
-source _app/rosetta_cs.vim
+source _app/omnigrok.vim
 
 "Show the instructions in a split window
 edit _app/sandboxes/instructions.txt

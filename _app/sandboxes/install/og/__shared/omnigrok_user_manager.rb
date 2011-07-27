@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
 @@users = []
-@@users_filename = "rcs_users"
+@@users_filename = "omnigrok_users"
 
 def code_of_length(x)
   result = ''
@@ -76,18 +76,18 @@ def create_all_users
   @@users.each do |user|
     `useradd -d /home/#{user[:login]} -m #{user[:login]} -s /bin/bash`
 
-    #Launch rcs immediately on login
+    #Launch omnigrok immediately on login
     `echo "" >> /home/#{user[:login]}/.bashrc`
-    `echo "### launch rcs immediately on login ###" >> /home/#{user[:login]}/.bashrc`
-    `echo "cd rcs; vim -c \\"source _app/sandboxes/sandboxes.vim\\"" >> /home/#{user[:login]}/.bashrc`
+    `echo "### launch omnigrok immediately on login ###" >> /home/#{user[:login]}/.bashrc`
+    `echo "cd omnigrok; vim -c \\"source _app/sandboxes/sandboxes.vim\\"" >> /home/#{user[:login]}/.bashrc`
 
     #Make it so that ajaxterm can login as the users using SSH keys [tag:user_login:gem]
     `mkdir /home/#{user[:login]}/.ssh`
-    `cp /usr/share/ajaxterm/rcs_id_rsa.pub /home/#{user[:login]}/.ssh/authorized_keys`
+    `cp /usr/share/ajaxterm/omnigrok_id_rsa.pub /home/#{user[:login]}/.ssh/authorized_keys`
     `chmod 600 /home/#{user[:login]}/.ssh/authorized_keys`
 
     #Copy the main files
-    `cp -a /home/ubuntu/rcs /home/#{user[:login]}`
+    `cp -a /home/ubuntu/omnigrok /home/#{user[:login]}`
 
     #Copy the .vim files (so you can get NERDTree)
     `cp -a /home/ubuntu/.vim /home/#{user[:login]}`
@@ -96,7 +96,7 @@ def create_all_users
     `chown -R #{user[:login]}:#{user[:login]} /home/#{user[:login]}`
 
     #Link the local directory (but continue to have it be owned by ubuntu)
-    `ln -s /home/ubuntu/rcs_app_local_to_link_to /home/#{user[:login]}/rcs/_app/local`
+    `ln -s /home/ubuntu/omnigrok_app_local_to_link_to /home/#{user[:login]}/omnigrok/_app/local`
   end
 end
 

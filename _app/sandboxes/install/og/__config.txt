@@ -1,4 +1,4 @@
-# rosetta_cs is tested on a base Ubuntu 11.04 with the following small modifications
+# omnigrok is tested on a base Ubuntu 11.04 with the following small modifications
 #   openssh-server installed
 # added the following line to the *bottom* of the /etc/sudoers file using visudo to allow it to do sudo commands without needing to supply the password.
 #   ubuntu ALL=(ALL) NOPASSWD: ALL
@@ -16,4 +16,3 @@ SSH_PORT="22"
 
 ##### Used by the Virtualbox script #####
 VB_VM_NAME="Ubuntu 11.04 Server"
-VB_SNAPSHOT_NAME="about to dhclient"
