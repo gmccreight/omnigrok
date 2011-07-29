@@ -191,6 +191,7 @@ def _run_commands
       puts c
     else
       #Some things put their results as STDERR, like pyunit, so we need to redirect it to the results.
+      puts c
       $results << `#{c} 2>&1`
     end
   end

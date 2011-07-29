@@ -13,7 +13,7 @@ def code_of_length(x)
 end
 
 def initial_setup
-  (1..10).each do
+  (1..20).each do
     user = {}
     user[:login] = code_of_length(10)
     user[:used] = :not_used
@@ -95,8 +95,9 @@ def create_all_users
     #Set the ownership of all the files
     `chown -R #{user[:login]}:#{user[:login]} /home/#{user[:login]}`
 
-    #Link the local directory (but continue to have it be owned by ubuntu)
+    #Link the big directories (but continue to have it be owned by ubuntu)
     `ln -s /home/ubuntu/omnigrok_app_local_to_link_to /home/#{user[:login]}/omnigrok/_app/local`
+    `ln -s /home/ubuntu/omnigrok_app_tests_frameworks_to_link_to /home/#{user[:login]}/omnigrok/_app/tests/frameworks`
   end
 end
 

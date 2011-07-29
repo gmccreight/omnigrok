@@ -12,4 +12,4 @@
 #./provisionator.sh og 11-100 VB_SNAPSHOT_NAME=about_to_dhclient
 #./provisionator.sh og 11,21-100 VB_SNAPSHOT_NAME=after_step_20_and_about_to_dhclient
 #./provisionator.sh og 11,31-38 VB_SNAPSHOT_NAME=after_step_30_and_about_to_dhclient
-./provisionator.sh og 11,39-100 VB_SNAPSHOT_NAME=after_step_38_and_about_to_dhclient
+./provisionator.sh og 11,38-100 VB_SNAPSHOT_NAME=after_step_38_and_about_to_dhclient
