@@ -1,21 +1,28 @@
 #!/bin/sh
 #
+# Version 0.7.2 (see history section at bottom of this script for more info)
+#
 # This provisioning script works like this:
 #
 standard_usage="
-                   dir        steps to         __config.txt file overrides
-                   \          run (or all)    /
-                    \          \             /
-                     \________  \_________  /__________________
- ./provisionator.sh  app_server  1,6-10,14  URI=192.168.168.102,SSH_PORT=30101
+                  your dir     steps to         override __config.txt file values
+                  \            run (or all)    /
+                   \            \             /
+                    \___________ \_________  /_________________________________
+ ./provisionator.sh  example_dir  1,6-10,14  URI=192.168.168.102,SSH_PORT=30101
  "
 # === More usage examples ===
 #
 # If you'd like to run 31 - 50, starting with a "step_30_done" snapshot that
 # you start as part of step 999, which is a virtualbox loading script:
 # ./provisionator.sh mm_app_server 999,31-50 VB_SNAPSHOT_NAME=step_30_done,URI=192.168.168.102
+# Note that VB_SNAPSHOT_NAME is a configuration option used in step 999, which
+# is a virtualbox loading script.
 #
 # === The provisioning directory structure ===
+#
+# Let's just assume that your dir is called "app_server" because it describes how to
+# provision your app server.  Below are the files you could put in that dir.
 #
 # app_server/
 #   __config.txt
@@ -24,15 +31,14 @@ standard_usage="
 #       combination with the overrides to create a __config_generated.txt file
 #       that has options specified on the command line as at higher precedence.
 #   __config_local.txt
-#       Optional. Does not get run directly... contains readme-style info and
-#       shared config info that the other steps can use.  It has higher
-#       precedence than the __confi.txt file.  It is used in combination with
-#       __config.txt file and the overrides to create a __config_generated.txt
-#       file that has options specified on the command line as at higher
-#       precedence.  It is seperated from __config.txt in case you want to have
-#       some options that you do not want to have in version control.
+#       Optional. Similar to the __config.txt file, but with higher
+#       precedence, so you can use it to override variables you set in
+#       __config.txt.  This file has lower precedence than configuration
+#       options passed on the command line.  If you use this file, consider
+#       ignoring it in your version control so that your collaborators don't
+#       get affected by your local configurations.
 #   __shared
-#       Not required, but can be very helpful.  Any files placed in this folder
+#       A folder. Optional, but can be very helpful.  Any files placed in this folder
 #       will be available both locally and remotely.  For example, you could
 #       put a shared library in there or some configuration files.
 #   15_local_security_and_ssh_which_is_run_locally.sh
@@ -89,8 +95,12 @@ fi
 # expand steps defined like: 10,15,18-21 into 10 15 18 19 20 21
 steps=$(eval $(eval "echo $steps | sed 's/,/ /g' | sed 's/\([^ ]\+\)/echo \1;/g' | sed 's/\([0-9]\+\)-\([0-9]\+\)/\`seq \1 \2\`/g'"))
 
-########## Overrides ##########
-# Take options on the command line like this:
+########## Start Overrides Section ##########
+# 
+# First, take overrides from the optional __config_local.txt file.
+# Anything in that file will override what's in the __config.txt file.
+#
+# Then, take options that were specified on the command line like this:
 # URI=192.168.168.102,SSH_PORT=30101,VB_SNAPSHOT_NAME="my snapshot"
 # And turn them into:
 #   URI="192.168.168.102"
@@ -103,24 +113,38 @@ steps=$(eval $(eval "echo $steps | sed 's/,/ /g' | sed 's/\([^ ]\+\)/echo \1;/g'
 cd $provisioning_folder
 
 cp -a __config.txt __config_generated.txt
+
 if [ -f __config_local.txt ]; then
+  echo "\n\n### __config_local.txt overrides ###\n\n" >> __config_generated.txt
  cat __config_local.txt >> __config_generated.txt
 fi
-echo "\n\n### OVERRIDES ###\n\n" >> __config_generated.txt
 
+echo "\n\n### command line overrides ###\n\n" >> __config_generated.txt
 overrides=$(eval "echo $overrides | sed 's/=/=\"/g' | sed 's/$/\"/' | sed 's/,/\"\\\n/g'")
 echo $overrides >> __config_generated.txt
 
+#
+########## End Overrides Section ##########
+
 eval `grep "^PROVISIONING_USER=" __config_generated.txt`
 eval `grep "^SSH_PORT="          __config_generated.txt`
+eval `grep "^SSH_IDENTITY_FILE=" __config_generated.txt`
 eval `grep "^URI="               __config_generated.txt`
 
 cp_to_remote() {
-    scp -r -P $SSH_PORT $1 $PROVISIONING_USER@$URI:~/$provisioning_folder
+    if [ -f $SSH_IDENTITY_FILE ]; then
+        scp -r -i $SSH_IDENTITY_FILE -P $SSH_PORT $1 $PROVISIONING_USER@$URI:~/$provisioning_folder
+    else
+        scp -r -P $SSH_PORT $1 $PROVISIONING_USER@$URI:~/$provisioning_folder
+    fi
 }
 
 do_on_remote() {
-    ssh -p $SSH_PORT $PROVISIONING_USER@$URI $1
+    if [ -f $SSH_IDENTITY_FILE ]; then
+      ssh -v -i $SSH_IDENTITY_FILE -p $SSH_PORT $PROVISIONING_USER@$URI $1
+    else
+      ssh -p $SSH_PORT $PROVISIONING_USER@$URI $1
+    fi
 }
 
 for i in $steps; do
@@ -153,3 +177,10 @@ for i in $steps; do
         echo step $i complete
     fi
 done
+
+# History
+# 0.7.2 - WIP (Not done yet)
+# Add support for identity file
+#
+# 0.7.1 - 2011-07-19
+# Started tracking history. Added support for a __config_local.txt file.
