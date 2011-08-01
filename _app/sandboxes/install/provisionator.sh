@@ -141,7 +141,7 @@ cp_to_remote() {
 
 do_on_remote() {
     if [ -f $SSH_IDENTITY_FILE ]; then
-      ssh -v -i $SSH_IDENTITY_FILE -p $SSH_PORT $PROVISIONING_USER@$URI $1
+      ssh -i $SSH_IDENTITY_FILE -p $SSH_PORT $PROVISIONING_USER@$URI $1
     else
       ssh -p $SSH_PORT $PROVISIONING_USER@$URI $1
     fi
