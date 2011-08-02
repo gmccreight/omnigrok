@@ -3,12 +3,12 @@
 
 source __shared/library.sh
 load_var PROVISIONING_USER
-load_var SSH_IDENTITY_FILE
+load_var SSH_SPECIAL_OPTIONS
 load_var SSH_PORT
 load_var URI
 
 #get the instance id by ssh'ing to the server and asking it
-instance_id=$(ssh -i $SSH_IDENTITY_FILE -p $SSH_PORT $PROVISIONING_USER@$URI "curl -s http://169.254.169.254/latest/meta-data/instance-id")
+instance_id=$(ssh $SSH_SPECIAL_OPTIONS -p $SSH_PORT $PROVISIONING_USER@$URI "curl -s http://169.254.169.254/latest/meta-data/instance-id")
 
 echo stopping instance $instance_id then sleeping 60 seconds
 ec2-stop-instances $instance_id

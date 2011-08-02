@@ -120,7 +120,7 @@ if [ -f __config_local.txt ]; then
 fi
 
 echo "\n\n### command line overrides ###\n\n" >> __config_generated.txt
-overrides=$(eval "echo $overrides | sed 's/=/=\"/g' | sed 's/$/\"/' | sed 's/,/\"\\\n/g'")
+overrides=$(eval "echo $overrides | sed 's/\\\\=/PROVISNATR_ESCAPED_EQUAL/g' | sed 's/=/=\"/g' | sed 's/PROVISNATR_ESCAPED_EQUAL/=/g' | sed 's/$/\"/' | sed 's/,/\"\\\n/g'")
 echo $overrides >> __config_generated.txt
 
 #
@@ -128,23 +128,15 @@ echo $overrides >> __config_generated.txt
 
 eval `grep "^PROVISIONING_USER=" __config_generated.txt`
 eval `grep "^SSH_PORT="          __config_generated.txt`
-eval `grep "^SSH_IDENTITY_FILE=" __config_generated.txt`
+eval `grep "^SSH_SPECIAL_OPTIONS=" __config_generated.txt`
 eval `grep "^URI="               __config_generated.txt`
 
 cp_to_remote() {
-    if [ -f $SSH_IDENTITY_FILE ]; then
-        scp -r -i $SSH_IDENTITY_FILE -P $SSH_PORT $1 $PROVISIONING_USER@$URI:~/$provisioning_folder
-    else
-        scp -r -P $SSH_PORT $1 $PROVISIONING_USER@$URI:~/$provisioning_folder
-    fi
+    scp $SSH_SPECIAL_OPTIONS -r -P $SSH_PORT $1 $PROVISIONING_USER@$URI:~/$provisioning_folder
 }
 
 do_on_remote() {
-    if [ -f $SSH_IDENTITY_FILE ]; then
-      ssh -i $SSH_IDENTITY_FILE -p $SSH_PORT $PROVISIONING_USER@$URI $1
-    else
-      ssh -p $SSH_PORT $PROVISIONING_USER@$URI $1
-    fi
+    ssh $SSH_SPECIAL_OPTIONS -p $SSH_PORT $PROVISIONING_USER@$URI $1
 }
 
 for i in $steps; do
@@ -181,6 +173,7 @@ done
 # History
 # 0.7.2 - WIP (Not done yet)
 # Add support for identity file
+# Actually, changed that to be SSH_SPECIAL_OPTIONS
 #
 # 0.7.1 - 2011-07-19
 # Started tracking history. Added support for a __config_local.txt file.

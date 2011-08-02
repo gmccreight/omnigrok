@@ -2,12 +2,12 @@
 
 source __shared/library.sh
 load_var PROVISIONING_USER
-load_var SSH_IDENTITY_FILE
+load_var SSH_SPECIAL_OPTIONS
 load_var SSH_PORT
 load_var URI
 
 #get the pre-existing instance id by ssh'ing to the server and asking it
-preexisting_instance_id=$(ssh -i $SSH_IDENTITY_FILE -p $SSH_PORT $PROVISIONING_USER@$URI "curl -s http://169.254.169.254/latest/meta-data/instance-id")
+preexisting_instance_id=$(ssh $SSH_SPECIAL_OPTIONS -p $SSH_PORT $PROVISIONING_USER@$URI "curl -s http://169.254.169.254/latest/meta-data/instance-id")
 
 echo info: terminating pre-existing instance
 ec2-terminate-instances $preexisting_instance_id
