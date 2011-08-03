@@ -20,8 +20,8 @@ sleep 10
 result=`ec2-run-instances -t m1.small -k gmcckey ami-06ad526f`
 instance_id=`echo $result | egrep -o "\W(i-[a-zA-Z0-9]{8})" | egrep -o "[a-zA-Z0-9-]+"`
 
-echo info: sleeping 20 to give the new instance time to start running before we try to associate the IP address with it
-sleep 20
+echo info: sleeping 30 to give the new instance time to start running before we try to associate the IP address with it
+sleep 30
 
 ec2-associate-address 107.20.217.248 -i $instance_id
 
@@ -30,5 +30,5 @@ ec2-associate-address 107.20.217.248 -i $instance_id
 ssh-keygen -f "/home/gmccreight/.ssh/known_hosts" -R omnigrok.com
 ssh-keygen -f "/home/gmccreight/.ssh/known_hosts" -R 107.20.217.248
 
-echo info: sleeping 30 to ensure that the machine is up and running before the script is done
-sleep 30
+echo info: sleeping 60 to ensure that the machine is up and running before the script is done
+sleep 60
