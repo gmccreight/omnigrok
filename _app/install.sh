@@ -195,6 +195,7 @@ if [ ! -d local/go ] || [ $force_install -eq 1 ]; then
   hg clone -u release https://go.googlecode.com/hg/ local/go
   cd local/go/src
   ./all.bash
+  cd ../../..
 fi
 
 #----------------------------------------------------------------------------
