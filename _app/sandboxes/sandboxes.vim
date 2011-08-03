@@ -3,6 +3,10 @@ source _app/omnigrok.vim
 "Show the instructions in a split window
 edit _app/sandboxes/instructions.txt
 
-"Open the NERDTree and move down to the first category
+"Open the NERDTree and the top-level main categories
 NERDTree
-normal 2j
+/data_structures
+normal o
+/algorithms
+normal o
+nohls
