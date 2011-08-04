@@ -98,6 +98,9 @@ def create_all_users
     #Link the big directories (but continue to have it be owned by ubuntu)
     `ln -s /home/ubuntu/omnigrok_app_local_to_link_to /home/#{user[:login]}/omnigrok/_app/local`
     `ln -s /home/ubuntu/omnigrok_app_tests_frameworks_to_link_to /home/#{user[:login]}/omnigrok/_app/tests/frameworks`
+
+    #Block the user from having any access to the internet
+    `echo pre-up iptables -A OUTPUT -p tcp -m owner --uid-owner #{user[:login]} -j DROP >> /etc/network/interfaces`
   end
 end
 
