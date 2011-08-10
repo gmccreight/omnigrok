@@ -222,3 +222,28 @@ fi
 apt_get_install ghc6
 apt_get_install libghc6-mtl-dev
 apt_get_install libghc6-hunit-dev
+
+#----------------------------------------------------------------------------
+# [id:lua]
+# [prereqs:]
+# [requiredby:]
+# Lua
+
+if [ $(should_install lua) -eq 1 ]; then
+  wget -O lua.tgz http://www.lua.org/ftp/lua-5.1.4.tar.gz
+  tar -xvzf lua.tgz
+  cd lua*
+  make linux
+  sudo make install
+  cd ../
+  rm -rf lua*
+fi
+
+if [ ! -f local/lunit/lunit ]; then
+  cd local
+  wget -O lunit.tgz http://www.nessie.de/mroth/lunit/lunit-0.5.tar.gz
+  tar -xvzf lunit.tgz
+  mv lunit-* lunit
+  rm lunit.tgz
+  cd ..
+fi

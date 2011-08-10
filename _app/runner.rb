@@ -124,6 +124,11 @@ def info_for_type(type)
     h[:commands] << "rm _xtest_.*"
 
     h[:passing_regex_str] = "^PASS$"
+  elsif type == "lua"
+    # It's a lua directory
+    h[:commands] << "#{app_dir}/local/lunit/lunit unittests.lua"
+
+    h[:passing_regex_str] = " 0 failed"
   elsif type == "haskell"
     # It's a haskell directory
     h[:commands] << "runhaskell unittests.hs"
