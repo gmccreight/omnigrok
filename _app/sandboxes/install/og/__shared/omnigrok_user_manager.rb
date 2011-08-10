@@ -13,7 +13,7 @@ def code_of_length(x)
 end
 
 def initial_setup
-  (1..20).each do
+  (1..100).each do
     user = {}
     user[:login] = code_of_length(10)
     user[:used] = :not_used
