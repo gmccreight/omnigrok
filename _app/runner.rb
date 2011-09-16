@@ -190,6 +190,7 @@ def cleanup
   $commands << "rm -f unittests"
   $commands << "rm -rf code"
   $commands << "rm -f code_or_practice_copied.*"
+  $commands << "rm -f *.pyc"
 end
 
 def _run_commands
