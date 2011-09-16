@@ -18,3 +18,5 @@ class NonEmptyStack[A](elem: A, rest: Stack[A]) extends Stack[A] {
   def top = elem
   def pop = rest
 }
+
+//ogfileid:33

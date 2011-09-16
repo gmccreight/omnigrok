@@ -7,3 +7,5 @@
   (is (= 24  (add2 22))))
 
 (run-tests 'this.test.namespace)
+
+;ogfileid:25

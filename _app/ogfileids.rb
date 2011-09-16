@@ -9,9 +9,9 @@ def main
     results = process_paths_for_file_ids()
     if results[:errors].size > 0
       results[:errors].each{|e| STDERR.puts e}
-      puts "FAIL: fileids - there was at least one fileid error"
+      puts "FAIL: ogfileids - there was at least one ogfileid error"
     else
-      puts "OK: fileids - all files have a fileid and there were no collisions"
+      puts "OK: ogfileids - all files have an ogfileid and there were no collisions"
     end
   end
 end
@@ -21,7 +21,8 @@ def process_paths_for_file_ids
   errors = []
   file_path_for = {}
 
-  skip_dirs = %W{. .. .DS_Store .git _app unfinished}
+  #Note that the unfinished files should also have ogfileids so they can be discussed easily
+  skip_dirs = %W{. .. .DS_Store .git _app}
   skip_files = %W{.gitignore}
 
   Find.find(Dir.getwd) do |path|
@@ -43,19 +44,19 @@ def process_paths_for_file_ids
         matches = line.match(/^.{0,2}ogfileid:(\d+)/)
         if matches
           num_matches += 1
-          fileid = matches[1]
-          if file_path_for[fileid]
-            errors << "fileid #{fileid} collision: #{path} and #{file_path_for[fileid]}"
+          ogfileid = matches[1]
+          if file_path_for[ogfileid]
+            errors << "ogfileid #{ogfileid} collision: #{path} and #{file_path_for[ogfileid]}"
           else
-            file_path_for[fileid] = path
+            file_path_for[ogfileid] = path
           end
         end
       end
 
       if num_matches == 0
-        errors << "no fileid in: #{path}"
+        errors << "no ogfileid in: #{path}"
       elsif num_matches > 1
-        errors << "fileid written more than once in: #{path}"
+        errors << "ogfileid written more than once in: #{path}"
       end
 
     end

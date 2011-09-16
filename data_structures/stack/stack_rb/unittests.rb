@@ -26,4 +26,4 @@ class TC_Stack < Test::Unit::TestCase
   end
 
 end
-#ogfileid:24
+#ogfileid:23

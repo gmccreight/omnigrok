@@ -5,3 +5,5 @@ GOFILES=\
 	code.go\
 
 include $(GOROOT)/src/Make.pkg
+
+#ogfileid:32
