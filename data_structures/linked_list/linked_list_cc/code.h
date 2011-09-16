@@ -20,3 +20,4 @@ int count_nodes(node **list);
 void delete_all_nodes(node **list);
 
 #endif  // CS_CODE_
+//ogfileid:7

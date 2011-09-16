@@ -65,3 +65,4 @@ void delete_all_nodes(node **list) {
     delete temp;
     *list = NULL;
 }
+//ogfileid:6

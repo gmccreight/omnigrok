@@ -36,3 +36,5 @@ class LinkedList
         tmp = tmp.pointer
         values.push tmp.value
     values
+
+#ogfileid:9

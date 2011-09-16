@@ -42,4 +42,5 @@ class Stack
 
 end
 
+#ogfileid:23
 # vim:set ft=ruby sw=2 sts=2 et:

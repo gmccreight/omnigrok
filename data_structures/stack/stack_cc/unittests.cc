@@ -37,3 +37,5 @@ TEST(StackTestGrouping, PushAndPop) {
 
     //[tag:todo:gem] we should somehow test the destructor, too
 }
+
+//ogfileid:21

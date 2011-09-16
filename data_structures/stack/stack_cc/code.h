@@ -21,3 +21,5 @@ class Stack {
 };
 
 #endif  // CS_CODE_
+
+//ogfileid:20

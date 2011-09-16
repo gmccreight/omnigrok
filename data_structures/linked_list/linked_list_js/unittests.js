@@ -25,3 +25,5 @@ isok("cool node a value", linked_list.list_values()[0], "the node a value is rig
 isok("default", linked_list.list_values()[1], "the node b value is right");
 
 finish();
+
+//ogfileid:13
