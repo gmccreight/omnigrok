@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
 # usage (from project base)
-# ./_app/ogfileids.rb test_paths_for_ogfileids
-# ./_app/ogfileids.rb path_for_ogfileid 20
+# ./_app/og_fileids.rb test_paths_for_ogfileids
+# ./_app/og_fileids.rb path_for_ogfileid 20
 
 require 'rubygems'
 require 'find'
@@ -13,9 +13,9 @@ def main
     results = process_paths_for_ogfileids()
     if results[:errors].size > 0
       results[:errors].each{|e| STDERR.puts e}
-      puts "FAIL: ogfileids - there was at least one ogfileid error"
+      puts "FAIL: og_fileids - there was at least one ogfileid error"
     else
-      puts "OK: ogfileids - all files have an ogfileid and there were no collisions"
+      puts "OK: og_fileids - all files have an ogfileid and there were no collisions"
     end
   elsif ARGV[0] == "path_for_ogfileid"
     ogfileid = ARGV[1]

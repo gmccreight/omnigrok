@@ -64,7 +64,7 @@ function! OgRunUnitTestsForDir()
 endfunction
 
 function! OgEditFileWithOgFileid(ogfileid)
-    let filepath = system('./_app/ogfileids.rb path_for_ogfileid ' . a:ogfileid)
+    let filepath = system('./_app/og_fileids.rb path_for_ogfileid ' . a:ogfileid)
     if strlen(filepath)
       execute "edit " . filepath
     endif
