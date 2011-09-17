@@ -1,22 +1,39 @@
 #!/usr/bin/env ruby
 
+# usage (from project base)
+# ./_app/ogfileids.rb test_paths_for_ogfileids
+# ./_app/ogfileids.rb path_for_ogfileid 20
+
 require 'rubygems'
 require 'find'
 require 'fileutils'
 
 def main
-  if ARGV[0] == "test_paths_for_file_ids"
-    results = process_paths_for_file_ids()
+  if ARGV[0] == "test_paths_for_ogfileids"
+    results = process_paths_for_ogfileids()
     if results[:errors].size > 0
       results[:errors].each{|e| STDERR.puts e}
       puts "FAIL: ogfileids - there was at least one ogfileid error"
     else
       puts "OK: ogfileids - all files have an ogfileid and there were no collisions"
     end
+  elsif ARGV[0] == "path_for_ogfileid"
+    ogfileid = ARGV[1]
+    if ogfileid !~ /^\d+$/
+      STDERR.puts "the ogfileid #{ogfileid} is not digits"
+    else
+      results = process_paths_for_ogfileids()
+      filepath = results[:file_paths_for][ogfileid]
+      if filepath
+        puts filepath
+      else
+        STDERR.puts "could not find filepath for #{ogfileid}"
+      end
+    end
   end
 end
 
-def process_paths_for_file_ids
+def process_paths_for_ogfileids
 
   errors = []
   file_path_for = {}
