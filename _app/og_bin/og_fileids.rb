@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
 # usage (from project base)
-# ./_app/og_fileids.rb test_paths_for_ogfileids
-# ./_app/og_fileids.rb path_for_ogfileid 20
+# ./_app/og_bin/og_fileids.rb test_paths_for_ogfileids
+# ./_app/og_bin/og_fileids.rb path_for_ogfileid 20
 
 require 'rubygems'
 require 'find'

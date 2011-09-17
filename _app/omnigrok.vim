@@ -57,14 +57,14 @@ function! OgRunUnitTestsForDir()
     let dir = expand("%:h")
     let current_file = expand("%")
     if match(current_file, "practice") > 0
-      exec "!./_app/og_runner.rb run_practice " . dir
+      exec "!./_app/og_bin/og_runner.rb run_practice " . dir
     else
-      exec "!./_app/og_runner.rb run_normal " . dir
+      exec "!./_app/og_bin/og_runner.rb run_normal " . dir
     endif
 endfunction
 
 function! OgEditFileWithOgFileid(ogfileid)
-    let filepath = system('./_app/og_fileids.rb path_for_ogfileid ' . a:ogfileid)
+    let filepath = system('./_app/og_bin/og_fileids.rb path_for_ogfileid ' . a:ogfileid)
     if strlen(filepath)
       execute "edit " . filepath
     endif

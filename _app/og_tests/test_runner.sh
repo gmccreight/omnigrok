@@ -7,7 +7,7 @@ do
   if [ $dir != "." ] ; then
     find $dir -mindepth 2 -maxdepth 2 -type d | while read fulldir
     do
-      ./_app/og_runner.rb do_all_tests_pass $fulldir
+      ./_app/og_bin/og_runner.rb do_all_tests_pass $fulldir
     done
   fi
 done

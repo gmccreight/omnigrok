@@ -73,7 +73,7 @@ def info_for_type(type)
     # Using Check, a unit testing framework for C
     h[:commands] << "gcc -o code.o -c #{sourcecode}"
     h[:commands] << "gcc -o unittests.o -c unittests.c"
-    h[:commands] << "gcc -o unittests #{app_dir}/tests/frameworks/c_check/src/*.o code.o unittests.o"
+    h[:commands] << "gcc -o unittests #{app_dir}/og_tests/frameworks/c_check/src/*.o code.o unittests.o"
     h[:commands] << "./unittests"
 
     h[:passing_regex_str] = "^100%"
@@ -82,7 +82,7 @@ def info_for_type(type)
     # Using Googletest, Google's C++ testing framework, version 1.4.0
     h[:commands] << "g++ -o code.o -c #{sourcecode}"
     h[:commands] << "g++ $(gtest-config --cppflags --cxxflags) -o unittests.o -c unittests.cc"
-    h[:commands] << "g++ $(gtest-config --ldflags --libs) -o unittests #{app_dir}/tests/frameworks/cc_gtest/gtest_main.o code.o unittests.o"
+    h[:commands] << "g++ $(gtest-config --ldflags --libs) -o unittests #{app_dir}/og_tests/frameworks/cc_gtest/gtest_main.o code.o unittests.o"
     h[:commands] << "./unittests"
 
     h[:passing_regex_str] = "PASSED"
@@ -101,7 +101,7 @@ def info_for_type(type)
     else
       h[:commands] << "cp code.js code_or_practice_copied.js"
     end
-    h[:commands] << "java -jar #{app_dir}/tests/frameworks/js/js.jar unittests.js"
+    h[:commands] << "java -jar #{app_dir}/og_tests/frameworks/js/js.jar unittests.js"
     h[:commands] << "rm code.js practice.js unittests.js" #special case for coffeescript
 
     h[:passing_regex_str] = "ALL TESTS PASSED"
@@ -109,7 +109,7 @@ def info_for_type(type)
     # It's a Javascript directory
     # Uses Rhino
     h[:commands] << "cp #{sourcecode} code_or_practice_copied.js"
-    h[:commands] << "java -jar #{app_dir}/tests/frameworks/js/js.jar unittests.js"
+    h[:commands] << "java -jar #{app_dir}/og_tests/frameworks/js/js.jar unittests.js"
 
     h[:passing_regex_str] = "ALL TESTS PASSED"
   elsif type == "go"
@@ -157,8 +157,8 @@ def info_for_type(type)
   elsif type == "scala"
     # It's a Scala directory
     shared = "PATH=$PATH:#{Dir.getwd}/_app/local/scala/bin;"
-    h[:commands] << "#{shared} scalac -cp #{app_dir}/tests/frameworks/scalatest/scalatest-1.6.1.jar code.scala unittests.scala"
-    h[:commands] << "#{shared} scala -cp #{app_dir}/tests/frameworks/scalatest/scalatest-1.6.1.jar org.scalatest.tools.Runner -p . -o -s unittests"
+    h[:commands] << "#{shared} scalac -cp #{app_dir}/og_tests/frameworks/scalatest/scalatest-1.6.1.jar code.scala unittests.scala"
+    h[:commands] << "#{shared} scala -cp #{app_dir}/og_tests/frameworks/scalatest/scalatest-1.6.1.jar org.scalatest.tools.Runner -p . -o -s unittests"
 
     h[:passing_regex_str] = "All tests passed"
   end
