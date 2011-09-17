@@ -33,7 +33,7 @@ def main
     elsif mode == "do_all_tests_pass"
       h = info_for_type(type_for_dir(dir))
       if $results =~ %r{#{h[:passing_regex_str]}}
-        puts "OK: runner - #{dir}"
+        puts "OK: og_runner - #{dir}"
       else
         puts $results
         puts "FAIL:   #{dir}"

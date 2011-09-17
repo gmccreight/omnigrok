@@ -57,9 +57,9 @@ function! OgRunUnitTestsForDir()
     let dir = expand("%:h")
     let current_file = expand("%")
     if match(current_file, "practice") > 0
-      exec "!./_app/runner.rb run_practice " . dir
+      exec "!./_app/og_runner.rb run_practice " . dir
     else
-      exec "!./_app/runner.rb run_normal " . dir
+      exec "!./_app/og_runner.rb run_normal " . dir
     endif
 endfunction
 
