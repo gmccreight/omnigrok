@@ -1,5 +1,14 @@
+command! -nargs=1 OgEdit call OgEditFileWithOgFileid(<q-args>)
+
+" Since every folder has a standard structure, it's easy to bounce between the
+" files.
+map ,t :call OgBufferOrEdit(expand("%:h") . "/unittests")<cr>
+map ,c :call OgBufferOrEdit(expand("%:h") . "/code")<cr>
+map ,h :call OgBufferOrEdit(expand("%:h") . "/code.h")<cr>
+map ,p :call OgBufferOrEdit(expand("%:h") . "/practice")<cr>
+
 " Switch to the buffer if it is open, otherwise 'edit' the file
-function! BufferOrEdit(filename)
+function! OgBufferOrEdit(filename)
     let fname = a:filename
 
     " If a file extension isn't already specified, figure it out based on
@@ -40,17 +49,10 @@ function! BufferOrEdit(filename)
 
 endfunction
 
-" Since every folder has a standard structure, it's easy to bounce between the
-" files.
-map ,t :call BufferOrEdit(expand("%:h") . "/unittests")<cr>
-map ,c :call BufferOrEdit(expand("%:h") . "/code")<cr>
-map ,h :call BufferOrEdit(expand("%:h") . "/code.h")<cr>
-map ,p :call BufferOrEdit(expand("%:h") . "/practice")<cr>
-
-map <c-j> :call RunUnitTestsForDir()<cr>
+map <c-j> :call OgRunUnitTestsForDir()<cr>
 
 " Directories have a standard structure, it's easy to run the unit tests.
-function! RunUnitTestsForDir()
+function! OgRunUnitTestsForDir()
     write
     let dir = expand("%:h")
     let current_file = expand("%")
@@ -58,5 +60,12 @@ function! RunUnitTestsForDir()
       exec "!./_app/runner.rb run_practice " . dir
     else
       exec "!./_app/runner.rb run_normal " . dir
+    endif
+endfunction
+
+function! OgEditFileWithOgFileid(ogfileid)
+    let filepath = system('./_app/ogfileids.rb path_for_ogfileid ' . a:ogfileid)
+    if strlen(filepath)
+      execute "edit " . filepath
     endif
 endfunction
