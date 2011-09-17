@@ -7,7 +7,7 @@ _app/local_settings.vim
 *__config_local.txt
 *__config_generated.txt
 
-languages
+by_language
 
 *.o
-!_app/tests/frameworks/cc_gtest/*.o
+!_app/og_tests/frameworks/cc_gtest/*.o
