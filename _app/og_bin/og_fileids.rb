@@ -3,6 +3,7 @@
 # usage (from project base)
 # ./_app/og_bin/og_fileids.rb test_paths_for_ogfileids
 # ./_app/og_bin/og_fileids.rb path_for_ogfileid 20
+# ./_app/og_bin/og_fileids.rb list_all_ids
 
 require 'rubygems'
 require 'find'
@@ -30,6 +31,9 @@ def main
         STDERR.puts "could not find filepath for #{ogfileid}"
       end
     end
+  elsif ARGV[0] == "list_all_ids"
+    results = process_paths_for_ogfileids()
+    results[:file_paths_for].keys.map{|x| x.to_i}.sort.each{|id| puts id}
   end
 end
 
