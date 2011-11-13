@@ -247,6 +247,9 @@
 #
 # And so the amortized cost of computing the next term is 1 + k - k = O(1).
 
+match_index_instrument = [] #oginstrument
+fail_instrument = [] #oginstrument
+
 def failTable(pattern):
     # Create the resulting table, which for length zero is None.
     result = [None]
@@ -290,6 +293,9 @@ def failTable(pattern):
 # values by trying to preserve the maximum proper border of the string we were
 # able to manage by that point.
 def kmpMatch(needle, haystack):
+    del match_index_instrument[ 0:len(match_index_instrument) ] #oginstrument
+    del fail_instrument[ 0:len(fail_instrument) ]               #oginstrument
+
     # Compute the failure table for the needle we're looking up.
     fail = failTable(needle)
 
@@ -301,11 +307,11 @@ def kmpMatch(needle, haystack):
 
     # Loop until we fall off the string or match.
     while index + match < len(haystack):
-        #print index, match
 
         # If the current character matches the expected character, then bump up
         # the match index.
         if haystack[index + match] == needle[match]:
+            match_index_instrument.append([index, match]) #oginstrument
             match = match + 1
 
             # If we completely matched everything, we're done.
@@ -323,9 +329,12 @@ def kmpMatch(needle, haystack):
             # Otherwise, see how much we need to skip forward before we have
             # another feasible match.
             else:
+                fail_instrument.append([index, match]) #oginstrument
                 index = index + match - fail[match]
                 match = fail[match]
+                fail_instrument.append([index, match]) #oginstrument
 
     # If we made it here, then no match was found.
     return None
 
+#ogfileid:37
