@@ -5,7 +5,19 @@ import unittest
 class TestKMPFunctions(unittest.TestCase):
 
     def test_fail_table_with_no_repeated_characters(self):
-        self.assertEqual(failTable("fly"), [None, 0, 0, 0])
+        self.assertEqual(failTable("ababcac"), [None, 0, 0, 1, 2, 0, 1, 0])
+
+    def test_fail_table_with_en_present_three_times(self):
+        self.assertEqual(failTable("enlightenment"), [None, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 1, 2, 0])
+
+    def test_fail_table_with_in_present_three_times(self):
+        self.assertEqual(failTable("pinpointing"), [None, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0])
+
+    def test_word_doubled(self):
+        self.assertEqual(failTable("hotshots"), [None, 0, 0, 0, 0, 1, 2, 3, 4])
+
+    def test_fail_table_unde_repeated_but_not_anchored_at_end_of_string(self):
+        self.assertEqual(failTable("underfunded"), [None, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 0])
 
     def test_fail_table_with_some_repeated_characters(self):
         self.assertEqual(failTable("george"), [None, 0, 0, 0, 0, 1, 2])
