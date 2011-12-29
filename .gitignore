@@ -4,6 +4,8 @@
 _app/local
 
 _app/local_settings.vim
+_app/vm/veewee
+
 *__config_local.txt
 *__config_generated.txt
 
