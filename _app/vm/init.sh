@@ -7,8 +7,7 @@
 ruby_version="1.9.2"
 veewee_version="0.2.2"
 veewee_template_name="ubuntu-11.10-server-i386"
-#boxname="oneiric32"
-boxname="mynewubuntu1"
+boxname="oneiric32"
 
 cd ./_app/vm
 
