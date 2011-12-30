@@ -50,17 +50,18 @@ apt_get_install git-core
 
 #----------------------------------------------------------------------------
 # [id:gtest]
-# [prereqs:]
+# [prereqs:unzip]
 # [requiredby:]
 # gtest, which is used for C++ code
 
 if [ $(should_install gtest-config) -eq 1 ]; then
-  wget -O gtest.tgz http://googletest.googlecode.com/files/gtest-1.5.0.tar.gz
-  tar -xvzf gtest.tgz
+  wget -O gtest.zip http://googletest.googlecode.com/files/gtest-1.6.0.zip
+  unzip gtest.zip
   cd gtest-*
   ./configure
   make
   sudo make install
+  # possibly old... We're in the process of upgrading to 1.6.0, and this might not apply
   # Need to add /usr/local/lib to the ld configuration. For more info:
   # http://groups.google.com/group/googletestframework/browse_thread/thread/871aeeca486073b3
   sudo bash -c 'echo /usr/local/lib >> /etc/ld.so.conf ' &&  sudo ldconfig
