@@ -79,12 +79,11 @@ def info_for_type(type)
     h[:passing_regex_str] = "^100%"
   elsif type == "cc"
     # It's a C++ directory
-    # Using Googletest, Google's C++ testing framework, version 1.4.0
+    # Using Googletest, Google's C++ testing framework
+    gtest_dir = "#{app_dir}/og_tests/frameworks/gtest-1.6.0"
     h[:commands] << "g++ -o code.o -c #{sourcecode}"
-    h[:commands] << "g++ $(gtest-config --cppflags --cxxflags) -o unittests.o -c unittests.cc"
-    h[:commands] << "g++ $(gtest-config --ldflags --libs) -o unittests #{app_dir}/og_tests/frameworks/cc_gtest/gtest_main.o code.o unittests.o"
+    h[:commands] << "g++ -I#{gtest_dir}/include #{sourcecode} unittests.cc #{gtest_dir}/libgtest.a -o unittests -lpthread"
     h[:commands] << "./unittests"
-
     h[:passing_regex_str] = "PASSED"
   elsif type == "clojure"
     # It's a clojure directory
