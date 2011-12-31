@@ -113,8 +113,8 @@ apt_get_install libssl-dev
 # [requiredby:npm,coffeescript]
 
 if [ $(should_install node) -eq 1 ]; then
-  nodeversion=0.4.8
-  wget http://nodejs.org/dist/node-v$nodeversion.tar.gz
+  nodeversion=0.6.6
+  wget http://nodejs.org/dist/v$nodeversion/node-v$nodeversion.tar.gz
   rm -rf node-v$nodeversion
   tar -xvzf node-v$nodeversion.tar.gz
   rm node-v$nodeversion.tar.gz
