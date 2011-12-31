@@ -38,4 +38,9 @@ TEST(StackTestGrouping, PushAndPop) {
     //[tag:todo:gem] we should somehow test the destructor, too
 }
 
+int main(int argc, char **argv) {
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+}
+
 //ogfileid:21

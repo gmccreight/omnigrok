@@ -55,12 +55,12 @@ apt_get_install git-core
 # gtest, which is used for C++ code
 
 if [ $(should_install gtest-config) -eq 1 ]; then
-  rm -rf og_tests/frameworks/gtest-*
-  rm -rf gtest-1.6.0
+  rm -rf og_tests/frameworks/cc_gtest-*
+  rm -rf gtest-*
   wget -O gtest.zip http://googletest.googlecode.com/files/gtest-1.6.0.zip
   unzip gtest.zip
-  mv gtest-* og_tests/frameworks
-  cd og_tests/frameworks/gtest-*
+  mv gtest-* og_tests/frameworks/cc_gtest-1.6.0
+  cd og_tests/frameworks/cc_gtest-1.6.0
   ./configure
   make
   g++ -I./include -I. -c ./src/gtest-all.cc

@@ -14,4 +14,4 @@ _app/vm/.vagrant
 by_language
 
 *.o
-!_app/og_tests/frameworks/cc_gtest/*.o
+_app/og_tests/frameworks/cc_gtest-1.6.0

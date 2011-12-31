@@ -74,4 +74,10 @@ TEST(NodesTestGrouping, DeleteAllNodesEmptyList) {
   delete_all_nodes(&list);
   EXPECT_EQ(0, count_nodes(&list));
 }
+
+int main(int argc, char **argv) {
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+}
+
 //ogfileid:8

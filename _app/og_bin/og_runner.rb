@@ -80,7 +80,7 @@ def info_for_type(type)
   elsif type == "cc"
     # It's a C++ directory
     # Using Googletest, Google's C++ testing framework
-    gtest_dir = "#{app_dir}/og_tests/frameworks/gtest-1.6.0"
+    gtest_dir = "#{app_dir}/og_tests/frameworks/cc_gtest-1.6.0"
     h[:commands] << "g++ -o code.o -c #{sourcecode}"
     h[:commands] << "g++ -I#{gtest_dir}/include #{sourcecode} unittests.cc #{gtest_dir}/libgtest.a -o unittests -lpthread"
     h[:commands] << "./unittests"
