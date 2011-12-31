@@ -54,7 +54,7 @@ apt_get_install git-core
 # [requiredby:]
 # gtest, which is used for C++ code
 
-if [[ ! -d og_tests/frameworks/cc_gtest-1.6.0 ]]; then
+if [ ! -d og_tests/frameworks/cc_gtest-1.6.0 ]; then
   wget -O gtest.zip http://googletest.googlecode.com/files/gtest-1.6.0.zip
   unzip gtest.zip
   mv gtest-* og_tests/frameworks/cc_gtest-1.6.0
