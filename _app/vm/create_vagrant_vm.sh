@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# ./_app/vm/init.sh /path/to/pre-existing/iso/file (optional)
+# ./_app/vm/create_vagrant_vm.sh /path/to/pre-existing/iso/file (optional)
 
 #Create a box using veewee
 
