@@ -2,9 +2,10 @@
 
 # ./_app/vm/do_all.sh
 
-cd ./_app/vm
-./create_vagrant_vm.sh
-vagrant up
-vagrant ssh -c "cd /og/_app; ./install.sh"
-vagrant ssh -c "cd /og/; ./_app/og_tests/test_all.sh"
-cd ../..
+./_app/vm/create_vagrant_box_from_veewee_template.sh
+
+# cd ./_app/vm
+# vagrant up
+# vagrant ssh -c "cd /og/_app; ./install.sh"
+# vagrant ssh -c "cd /og/; ./_app/og_tests/test_all.sh"
+# cd ../..
