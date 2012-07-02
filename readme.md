@@ -44,11 +44,23 @@ Rationale
 
 Stack Overflow and Rosetta Code, for all their greatness, provide code snippets without context.  Often those snippets require a particular version of an interpreter and various tough-to-satisfy prerequisites.  Even if your setup is perfect, the code often contains small typos and logical errors that cause bugs because the code isn't automatically tested.  People who are learning a new language are the least well equipped to handle these often obtuse errors.
 
+Tests are as important as code, and we treat them that way.  All code examples have tests.
+
+Approach - Hosted Version
+---
+
+Unlike most learn-in-the-browser sites, we don't aim to provide an approximation of a single language in a REPL in the browser, rather we aim to provide real languages running real programs with real tests in the browser.  We do this by treating the browser as a terminal.
+
 
 Contributing
 ---
 
 Omnigrok aims to be ridiculously easy to contribute to.  It relies very heavily on modularity and conventions.  If you follow the conventions your code and its unit tests will just work.
+
+Meta-harness
+---
+
+Many test harnesses use different reporting formats.  Omnigrok gets around this problem by using custom regex matchers for each reporting format, allowing us to create a meta-harness that helps us ensure that all the tests for all the code examples pass.  Having such a harness in place allows us to release new versions of the full stack quickly and without fear of regressions.  It will also allow us to vet new contributions quickly.
 
 Challenges
 ---
